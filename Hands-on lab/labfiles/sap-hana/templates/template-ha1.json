@@ -1,0 +1,239 @@
+{
+  "infrastructure": {
+    "region": "eastus",
+    "resource_group": {
+      "is_existing": "false",
+      "name": "hanav2-ha-RG"
+    },
+    "ppg": {
+      "is_existing": "false",
+      "name": "hanav2-ha-ppg"
+    },
+    "vnets": {
+      "management": {
+        "is_existing": "false",
+        "name": "hanav2-ha-vnet-mgmt",
+        "address_space": "10.100.0.0/16",
+        "subnet_mgmt": {
+          "is_existing": "false",
+          "name": "subnet-mgmt",
+          "prefix": "10.100.0.0/24",
+          "nsg": {
+            "is_existing": "false",
+            "name": "nsg-mgmt",
+            "allowed_ips": [
+              "0.0.0.0/0"
+            ]
+          }
+        }
+      },
+      "sap": {
+        "is_existing": "false",
+        "name": "hanav2-ha-vnet-sap",
+        "address_space": "10.101.0.0/16",
+        "subnet_admin": {
+          "is_existing": "false",
+          "name": "subnet-admin",
+          "prefix": "10.101.1.0/24",
+          "nsg": {
+            "is_existing": "false",
+            "name": "nsg-admin"
+          }
+        },
+        "subnet_db": {
+          "is_existing": "false",
+          "name": "subnet-db",
+          "prefix": "10.101.2.0/24",
+          "nsg": {
+            "is_existing": "false",
+            "name": "nsg-db"
+          }
+        },
+        "subnet_app": {
+          "is_existing": "false",
+          "name": "subnet-app",
+          "prefix": "10.101.3.0/24",
+          "nsg": {
+            "is_existing": "false",
+            "name": "nsg-app"
+          }
+        },
+        "subnet_iscsi": {
+          "is_existing": "false",
+          "name": "subnet-iscsi",
+          "prefix": "10.101.4.0/24",
+          "nsg": {
+            "is_existing": "false",
+            "name": "nsg-iscsi"
+          }
+        }
+      }
+    },
+    "iscsi": {
+      "iscsi_count": 3,
+      "size":"Standard_D2s_v3",
+      "os": {
+        "publisher": "SUSE",
+        "offer": "sles-sap-12-sp5",
+        "sku": "gen1",
+        "version": "latest"
+      },
+      "authentication": {
+        "type": "key",
+        "username": "azureadm"
+      }
+    }
+  },
+  "jumpboxes": {
+    "windows": [
+      {
+        "name": "hanav2jmp-vm0",
+        "destroy_after_deploy": "false",
+        "size": "Standard_D2s_v3",
+        "disk_type": "StandardSSD_LRS",
+        "os": {
+          "publisher": "MicrosoftWindowsServer",
+          "offer": "WindowsServer",
+          "sku": "2019-Datacenter"
+        },
+        "authentication": {
+          "type": "password",
+          "username": "azureadm",
+          "password": "Sap@hana2019!"
+        },
+        "components": []
+      }
+    ],
+    "linux": []
+  },
+  "databases": [
+    {
+      "platform": "HANA",
+      "db_version": "2.00.043",
+      "os": {
+        "publisher": "suse",
+        "offer": "sles-sap-12-sp5",
+        "sku": "gen1"
+      },
+      "size": "Demo",
+      "filesystem": "xfs",
+      "high_availability": true,
+      "authentication": {
+        "type": "key",
+        "username": "azureadm"
+      },
+      "instance": {
+        "sid": "HN1",
+        "instance_number": "00"
+      },
+      "credentials": {
+        "db_systemdb_password": "Manager1",
+        "os_sidadm_password": "Help4you",
+        "os_sapadm_password": "Help4you",
+        "xsa_admin_password": "Manager1",
+        "cockpit_admin_password": "Manager1",
+        "ha_cluster_password": "ASecurePa55w0rd"
+      },
+      "dbnodes": [
+        {
+          "name": "hdb1",
+          "role": "worker"
+        }
+      ],
+      "components": {
+        "hana_database": [],
+        "hana_client_linux": [],
+        "xs": [
+           "xsac_ui5_sb",
+           "xsac_ui5_fesv6",
+           "xsac_portal_serv",
+           "xsac_services",
+           "xsac_mess_srv",
+           "xsac_alm_pi_ui",
+           "xsac_xsa_cockpit"
+        ]
+      },
+      "xsa": {
+        "routing": "ports"
+      },
+      "shine": {
+        "email": "shinedemo@microsoft.com"
+      },
+      "loadbalancer": {}
+    }
+  ],
+  "application": {
+    "sid": "HN1",
+    "enable_deployment": false,
+    "scs_instance_number": "01",
+    "ers_instance_number": "02",
+    "scs_high_availability": false,
+    "application_server_count": 1,
+    "webdispatcher_count": 1,
+    "vm_sizing": "Default",
+    "authentication": {
+      "type": "key",
+      "username": "azureadm"
+    },
+    "os": {
+      "publisher": "suse",
+      "offer": "sles-sap-12-sp5",
+      "sku": "gen1"
+    }
+  },
+  "software": {
+    "storage_account_sapbits": {
+      "is_existing": true,
+      "account_tier": "Standard",
+      "account_replication_type": "LRS",
+      "account_kind": "FileStorage",
+      "file_share_name": "bits",
+      "container_access_type": "private",
+      "arm_id": "VAR_STORAGE_ACCOUNT_ID"
+    },
+    "downloader": {
+      "credentials": {
+        "sap_user": "",
+        "sap_password": ""
+      },
+      "scenarios": [
+        {
+          "scenario_type": "DB",
+          "product_name": "HANA",
+          "product_version": "2.0",
+          "os_type": "LINUX_X64",
+          "os_version": "SLES12.3",
+          "components": [
+            "PLATFORM"
+          ]
+        },
+        {
+          "scenario_type": "RTI",
+          "product_name": "RTI",
+          "os_type": "LINUX_X64"
+        },
+        {
+          "scenario_type": "BASTION",
+          "os_type": "NT_X64"
+        }
+      ],
+      "debug": {
+        "enabled": false,
+        "cert": "charles.pem",
+        "proxies": {
+          "http": "http://127.0.0.1:8888",
+          "https": "https://127.0.0.1:8888"
+        }
+      }
+    }
+  },
+  "sshkey": {
+    "path_to_public_key": "~/.ssh/id_rsa.pub",
+    "path_to_private_key": "~/.ssh/id_rsa"
+  },
+  "options": {
+    "enable_secure_transfer": true,
+    "ansible_execution": false,
+    "enable_prometheus": false
+  }
+}

@@ -9,7 +9,7 @@ SAP HANA on Azure
 </div>
 
 <div class="MCWHeader3">
-March 2020
+October 2020
 </div>
 
 Information in this document, including URL and other Internet Web site references, is subject to change without notice. Unless otherwise noted, the example companies, organizations, products, domain names, e-mail addresses, logos, people, places, and events depicted herein are fictitious, and no association with any real company, organization, product, domain name, e-mail address, logo, person, place or event is intended or should be inferred. Complying with all applicable copyright laws is the responsibility of the user. Without limiting the rights under copyright, no part of this document may be reproduced, stored in or introduced into a retrieval system, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise), or for any purpose, without the express written permission of Microsoft Corporation.
@@ -78,15 +78,15 @@ Directions: With all participants in the session, the facilitator/SME presents a
 
 Contoso Group is a pharmaceutical company with its headquarters based in Boston, US.  
 
-Contoso Leadership and Planning Groups want to drastically reduce server and storage hardware in their own datacenters to minimize IT related costs. Contoso has already a number of their non-SAP systems migrated to Azure. The leadership asked Contoso IT to look into the possibility to deploy its green field S/4HANA environment to cloud. 
+Contoso Leadership and Planning Groups want to drastically reduce server and storage hardware in their own datacenters to minimize IT related costs. Leadership has asked Contoso IT to explore the possibility to deploy a greenfield S/4HANA environment to cloud. In addition to NetWeaver-based apps, Contoso wants to evaluate the option of implementing XSA-based apps. 
 
-Contoso IT decided to leverage its knowledge of the Microsoft cloud platform and existing ExpressRoute connectivity and host its SAP S/4HANA landscape in Azure. 
+Since Contoso already has a number of their non-SAP systems running to Azure, Contoso IT decided to leverage its knowledge of the Microsoft cloud platform and existing ExpressRoute connectivity and host its SAP S/4HANA landscape in Azure. 
 
-Considering that Contoso finance and supply chain teams will strongly rely on S/4HANA, the systems should be highly available, and their performance must be predictable and consistent.  In addition, the management team wants to leverage disaster recovery capabilities offered by Azure in order to ensure resiliency in case the primary region hosting the new deployment becomes unavailable. 
+Considering that Contoso finance and supply chain teams will strongly rely on S/4HANA, the systems should be highly available, and their performance must be predictable and consistent. In addition, the management team wants to leverage disaster recovery capabilities offered by Azure in order to ensure resiliency in case the primary region hosting the new deployment becomes unavailable. 
 
-Andrew Cross, CIO of Contoso Group emphasized this point by stating, "Our operational dependencies on SAP applications force us to seek reasonably priced high availability and disaster recovery capabilities for our production SAP S/4HANA deployments.” 
+Andrew Cross, CIO of Contoso Group emphasized this point by stating, "Our planned operational dependencies on SAP applications force us to seek reasonably priced high availability and disaster recovery capabilities for our production SAP S/4HANA deployments.” 
 
-Before migrating the production environment, Contoso wants to test its new deployment approach by provisioning development, and UAT environments in Azure
+Before implementing the production environment, Contoso wants to test its new deployment approach by provisioning development, and UAT environments in Azure.
 
 ### Contoso S/4HANA Deployment Priorities
 
@@ -96,7 +96,7 @@ Before migrating the production environment, Contoso wants to test its new deplo
 
 -   Data protection & security
 
--   Safe and smooth migration with downtime minimized
+-   Streamlined and automated deployment methodology
 
 -   IT standardization across SAP and non-SAP
 
@@ -156,9 +156,9 @@ Before migrating the production environment, Contoso wants to test its new deplo
 
 1.  Is the proposed solution fully certified by SAP? 
 
-1.  Does the proposal meet Contoso business continuity requirements? What if there’s outage on VM or storage? How can we restore from backup? How can we failover the landscape in case of an outage?
+1.  Does the proposal meet Contoso business continuity requirements? What if there's outage on VM or storage? How can we restore from backup? How can we failover the landscape in case of an outage?
 
-1.  There’re legacy systems on-prem that need to interact with S/4HANA in cloud. How can we minimize performance impact in cross-premises scenarios? 
+1.  There're legacy systems on-prem that need to interact with S/4HANA in cloud. How can we minimize performance impact in cross-premises scenarios? 
 
 1.  Can we change the size of the environment if sizing requirements change in future?
 
@@ -208,6 +208,8 @@ Before migrating the production environment, Contoso wants to test its new deplo
 
     -   Cluster arbitration (Cloud Witness and SBD)
 
+    -   Proximity placement groups
+
 1.  Pricing
 
     -   Use Azure Pricing Calculator
@@ -226,17 +228,17 @@ Before migrating the production environment, Contoso wants to test its new deplo
 
 ### Infographic for key design concepts
 
-![SAP on Azure - a wide varity of compute instances](images/SoA-WideVerietyofCompute.png "Wide variety of Compute instances")
+![SAP on Azure - a wide varity of compute instances](images/Whiteboarddesignsessionstudentguide-SAPHANAonAzure/media/sap_on_azure_wide_variety_compute_instances.png "Wide variety of Compute instances")
 
-![Pick Azure Compute for HANA and Application Servers](images/ComputeforHANAandAppServers.png "Azure Compute for HANA and Application Servers")
+![Pick Azure Compute for HANA and Application Servers](images/Whiteboarddesignsessionstudentguide-SAPHANAonAzure/media/sap_on_azure_pick_compute_hana_and_app_servers.png "Azure Compute for HANA and Application Servers")
 
-![Azure VM types to meet sizing requirements](images/VMtypesforSizingRequirements.png "Azure VM types to meet sizing requirements")
+![Azure VM types to meet sizing requirements](images/Whiteboarddesignsessionstudentguide-SAPHANAonAzure/media/sap_on_azure_vm_sizing_requirements.png "Azure VM types to meet sizing requirements")
 
-![Premium Storage to run HANA on M series VM](images/PremiumStorageforMseriesVM.png "Premium Storage config to run HANA on M series VM")
+![Premium Storage to run HANA on M series VM](images/Whiteboarddesignsessionstudentguide-SAPHANAonAzure/media/sap_on_azure_premium_storage_hana.png "Premium Storage config to run HANA on M series VM")
 
-![S/4HANA HA in Availability Sets and DR across regions](images/S4HANAinASandcrossRegionDR.png "S/4HANA HA in Availability Sets and DR across regions")
+![S/4HANA HA in Availability Sets and DR across regions](images/Whiteboarddesignsessionstudentguide-SAPHANAonAzure/media/sap_on_azure_hana_dr_across_regions.png.png "S/4HANA HA in Availability Sets and DR across regions")
 
-![S/4HANA HA and DR across Availability Zones](images/S4HANAHAandDRacrossAZs.png "S/4HANA HA and DR across Availability Zones")
+![S/4HANA HA and DR across Availability Zones](images/Whiteboarddesignsessionstudentguide-SAPHANAonAzure/media/sap_on_azure_hana_dr_across_zones.png "S/4HANA HA and DR across Availability Zones")
 
 ## Step 2: Design a proof of concept solution
 
@@ -260,9 +262,9 @@ Directions: With all participants at your table, respond to the following questi
 
 *High-level solution architecture:*
 
-1.  What should be the Azure region(s) where the solution will be deployed?
-
 1.  How would you ensure that the high-availability and disaster recovery requirements are satisfied?
+
+1.  What should be the Azure region(s) where the solution will be deployed?
 
 *Network design:*
 
@@ -278,7 +280,7 @@ Directions: With all participants at your table, respond to the following questi
 
 *Solution cost:*
 
-1.  What is the estimated cost of your solution? Provide pricing for *HA/DR* and *cost conscious** (without HA/DR) options.
+1.  What is the estimated cost of your solution? Provide pricing for *HA/DR* and *cost conscious* (without HA/DR) options.
 
 **Prepare**
 

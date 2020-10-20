@@ -1,4 +1,4 @@
-﻿![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
 <div class="MCWHeader1">
 SAP HANA on Azure
@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-May 2020
+October 2020
 </div>
 
 
@@ -19,7 +19,7 @@ Microsoft may have patents, patent applications, trademarks, copyrights, or othe
 
 The names of manufacturers, products, or URLs are provided for informational purposes only and Microsoft makes no representations and warranties, either expressed, implied, or statutory, regarding these manufacturers or the use of the products with any Microsoft technologies. The inclusion of a manufacturer or product does not imply endorsement of Microsoft of the manufacturer or product. Links may be provided to third party sites. Such sites are not under the control of Microsoft and Microsoft is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. Microsoft is not responsible for webcasting or any other form of transmission received from any linked site. Microsoft is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement of Microsoft of the site or the products contained therein.
 
-© 2020 Microsoft Corporation. All rights reserved.
+� 2020 Microsoft Corporation. All rights reserved.
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
@@ -33,23 +33,20 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
     - [Solution architecture](#solution-architecture)
     - [Requirements](#requirements)
     - [Help references](#help-references)
-    - [Exercise 1: Deploy a single node HANA instance by using Terraform and Ansible](#exercise-1-deploy-a-single-node-hana-instance-by-using-terraform-and-ansible)
-        - [Task 1: Upload media files to Azure Storage](#task-1-upload-media-files-to-azure-storage)
-        - [Task 2: Prepare for a single node HANA deployment](#task-2-prepare-for-a-single-node-hana-deployment)
-        - [Task 3: Perform the single node HANA deployment](#task-3-perform-the-single-node-hana-deployment)
-    - [Exercise 2: Validate and remove the single node HANA deployment](#exercise-2-validate-and-remove-the-single-node-hana-deployment)
-        - [Task 1: Connect to the single node HANA instance by using SAP HANA Studio](#task-1-connect-to-the-single-node-hana-instance-by-using-sap-hana-studio)
-        - [Task 2: Remove the single node HANA deployment](#task-2-remove-the-single-node-hana-deployment)
-    - [Exercise 3: Deploy highly-available HANA instances by using Terraform and Ansible](#exercise-3-deploy-highly-available-hana-instances-by-using-terraform-and-ansible)
-        - [Task 1: Prepare for a highly-available HANA deployment](#task-1-prepare-for-a-highly-available-hana-deployment)
-        - [Task 2: Perform the highly-available HANA deployment](#task-2-perform-the-highly-available-hana-deployment)
-    - [Exercise 4: Validate and remove the deployment of the highly-available HANA instances](#exercise-4-validate-and-remove-the-deployment-of-the-highly-available-hana-instances)
-        - [Task 1: Connect to the highly-available HANA instances by using SAP HANA Studio](#task-1-connect-to-the-highly-available-hana-instances-by-using-sap-hana-studio)
-        - [Task 2: Connect to the highly-available HANA instances by using Hawk](#task-2-connect-to-the-highly-available-hana-instances-by-using-hawk)
-        - [Task 3: Test a failover](#task-3-test-a-failover)
-        - [Task 4: Test a migration](#task-4-test-a-migration)
-        - [Task 5: Test fencing](#task-5-test-fencing)
-        - [Task 6: Remove the highly-available HANA deployment](#task-6-remove-the-highly-available-hana-deployment)
+    - [Exercise 1: Implement a single node HANA instance by using Terraform and Ansible](#exercise-1-Implement-a-single-node-HANA-instance-by-using-Terraform-and-Ansible)
+        - [Task 1: Provision a Linux virtual machine hosting lab deployment tools](#task-1-Provision-a-Linux-virtual-machine-hosting-lab-deployment-tools)
+        - [Task 2: Deploy a single node HANA instance by using Terraform and Ansible](#task-2-Deploy-a-single-node-HANA-instance-by-using-Terraform-and-Ansible)
+        - [Task 3: Review the deployment of a single node HANA instance](#task-3-Review-the-deployment-of-a-single-node-HANA-instance)
+        - [Task 4: Prepare for the highly-available deployment of SAP HANA](#task-4-Prepare-for-the-highly-available-deployment-of-SAP-HANA)
+    - [Exercise 2: Implement highly-available HANA instances by using Terraform and Ansible](#exercise-2-Implement-highly-available-HANA-instances-by-using-Terraform-and-Ansible)
+        - [Task 1: Deploy highly-available Azure infrastructure by using Terraform](#task-1-Deploy-highly-available-Azure-infrastructure-by-using-Terraform)
+        - [Task 2: Deploy highly-available Azure HANA instances by using Ansible](#task-2-Deploy-highly-available-Azure-HANA-instances-by-using-Ansible)
+        - [Task 3: Review the deployment of highly-available HANA instances](#task-3-Review-the-deployment-of-highly-available-HANA-instances)
+        - [Task 4: Install SAP HANA Client on the Windows Server jumpbox Azure VM](#task-4-Install-SAP-HANA-Client-on-the-Windows-Server-jumpbox-Azure-VM)
+        - [Task 5: Test failover of the clustered resources](#task-5-Test-failover-of-the-clustered-resources)
+        - [Task 6: Test fencing of the clustered resources](#task-6-Test-fencing-of-the-clustered-resources)
+        - [Task 7: Test migration of the clustered resources](#task-7-Test-migration-of-the-clustered-resources)
+        - [Task 8: Test fencing of the clustered resources with the AUTOMATED_REGISTER parameter enabled](#task-8-Test-fencing-of-the-clustered-resources-with-the-AUTOMATED_REGISTER-parameter-enabled)
     - [After the Hands-on lab](#after-the-hands-on-lab)
 
 
@@ -59,36 +56,44 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
 
 ## Abstract and learning objectives 
 
-In this hands-on lab, you will step through the implementation of a single node and highly available SAP HANA deployments on Microsoft Azure virtual machines running SUSE Linux Enterprise Server. 
+In this hands-on lab, you will step through the implementation of a single-node and highly-available SAP HANA deployments on Microsoft Azure virtual machines running SUSE Linux Enterprise Server. 
 
-After its completion, you will be able to perform single node and highly available SAP HANA deployments by using Terraform and Ansible, validate both types of deployments, test failover scenarios, and remove the deployed resources.
+After its completion, you will be able to perform single-node and highly-available SAP HANA deployments by using Terraform and Ansible, validate both types of deployments, test failover scenarios, and remove the deployed resources.
 
 ## Overview
 
-In this hands-on lab, you are working with Contoso to develop a process of implementing an automated deployment of single node and highly available SAP HANA instances on Azure virtual machines (VMs). Your tasks will include the preparation for the deployment process, invoking the deployment, validating the outcome of the deployment, and removal all of the deployed resources.
+In this hands-on lab, you are working with Contoso to develop a process of implementing an automated deployment of single-node and highly-available SAP HANA instances on Azure virtual machines (VMs). Your tasks will include the preparation for the deployment process, invoking the deployment, validating the outcome of the deployment, and removal all of the deployed resources.
 
 
 ## Solution architecture
 
-HANA single node deployment
+HANA single-node deployment
 
-![Solution architecture to setup SAP HANA on Azure consisting of a single node HANA instance.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image1.png  "Single-node HANA instance solution architecture diagram")
+![Solution architecture to setup SAP HANA on Azure consisting of a single-node HANA instance.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/single-node-instance-architecture.png "Single-node HANA instance solution architecture diagram")
 
-HANA highly available deployment
+HANA highly-available deployment
 
-![Solution architecture to setup SAP HANA on Azure consisting of a highly-available HANA instance.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image2.png  "Highly available HANA instance solution architecture diagram")
+![Solution architecture to setup SAP HANA on Azure consisting of a highly-available HANA instance.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/clustered-hana-instance-architecture.png "highly-available HANA instance solution architecture diagram")
 
 ## Requirements
 
 -   A Microsoft Azure subscription
 
--   A lab computer running Windows 10 or Windows Server 2019 with:
+-   A work or school account with the Owner role in the Azure subscription and permissions to create service principals in the Azure Active Directory (Azure AD) tenant associated with the Azure subscription
+
+-   A SAP-user (S-user) account with access to SAP software downloads
+
+-   A lab computer with:
 
     -   Access to Microsoft Azure
 
     -   Access to the SAP HANA software (requires an SAP Online Service System account)
 
-   > **Note**: The lab does not require locally installed software. Azure CLI and Terraform tasks are performed by using Cloud Shell in the Azure portal.
+    -   An SSH client such as PuTTY available from [PuTTY download page](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
+
+    -   A modern web browser (Microsoft Edge, Google Chrome, or Mozilla Firefox)
+
+   > **Note**: Besides an SSH client and a web browser, the lab computer does not require locally installed software.
 
 ## Help references
 
@@ -98,860 +103,1567 @@ HANA highly available deployment
 | Automated SAP Deployments in Azure Cloud | <https://github.com/Azure/sap-hana/> |
 
 
-## Exercise 1: Deploy a single node HANA instance by using Terraform and Ansible
+## Exercise 1: Implement a single-node HANA instance by using Terraform and Ansible
 
-Duration: 90 minutes
+Duration: 120 minutes
 
 In this exercise, you will implement a single-node deployment of SAP HANA on Azure virtual machines (VMs). Following initial configuration of Terraform-based templates, the deployment will be fully automated, including installation of all necessary SAP HANA components. 
 
-### Task 1: Upload media files to Azure Storage
+### Task 1: Provision a Linux virtual machine hosting lab deployment tools
 
-1.  From the lab computer, start a Web browser, navigate to **SAP Software Downloads** at https://launchpad.support.sap.com/#/softwarecenter/ and log on using your SAP Online Service System account.
+1.  From the lab computer, start a Web browser, navigate to the Azure portal at https://portal.azure.com and sign in with credentials you will be using in this lab.
 
-2.  From the **SAP Software Download**, download the following software packages to the lab computer:
+1.  In the Azure portal at <http://portal.azure.com>, start a Bash session in **Cloud Shell**.
 
-    -   SAPCAR 7.21 SAPCAR for Linux x86_64 (SAPCAR_1311-80000935.EXE)
+1.  If prompted, in the **Welcome to Azure Cloud Shell** window, select **Bash (Linux)**.
 
-    -   SAPCAR 7.21 Windows on x64 64bit (SAPCAR_1311-80000938.EXE)
+1.  If prompted, in the **You have no storage mounted** window, select **Create storage**.
 
-    -   SAP HANA DATABASE 1.00 Linux on x86_64 64bit Maintenance Revision 122.30 (SPS12) for HANA DB 1.00 (IMDB_SERVER100_122_30-10009569.SAR)
-
-    -   Support Package SAP HOST AGENT 7.21 SP36 Linux on x86_64 64bit (SAPHOSTAGENT36_36-20009394.SAR)
-
-    -   SAP HANA STUDIO 2 Windows on x64 64bit Revision 122.030 for SAP HANA STUDIO 2 (IMC_STUDIO2_122_30-80000323.SAR)
-
-    > **Note**: The packages listed above might be superseded by newer versions. If so, ensure to adjust accordingly all references to the names of these packages in this task. To find appropriate packages, you can take advantage of the search functionality of the **SAP Software Downloads** portal. Use the first part of each package (up to the first hyphen) as the search criterion and, in the search results, identify the type that matches the intended platform (either Linux x86_64 or Windows 64-bit).
-    
-3.  From the lab computer, start a Web browser, navigate to the Azure portal at https://portal.azure.com and sign in with credentials you will be using in this lab.
-
-4.  In the Azure portal at <http://portal.azure.com>, start a Bash session in **Cloud Shell**.
-
-5.  In the Cloud Shell pane, from the Bash prompt, run the following to create a resource group that will host a storage account containing media files, where the `<location>` placeholder designates the target Azure region that you intend to use for this lab (e.g. `westus2`):
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to select the Azure subscription in which you will provision the Azure resources in this lab (replace the `[subscription_ID]` placeholder with the value of the subscriptionID parameter of the Azure subscription you intend to use in this lab):
 
     ```sh
-    MEDIA_RESOURCE_GROUP_NAME='hanaMedia-RG'
-    MEDIA_RESOURCE_GROUP=$(az group create --location location --name $MEDIA_RESOURCE_GROUP_NAME)
-    ``` 
-
-   > **Note**: Consider using the **westus2** Azure region for this lab. Do not use **eastus**.
-
-6.  In the Cloud Shell pane, from the Bash prompt, run the following to generate a pseudo-random name you will assign to the storage account:
-
-    ```sh
-    MEDIA_STORAGE_ACCOUNT_NAME=hana$RANDOM$RANDOM
-    ``` 
-
-7.  In the Cloud Shell pane, from the Bash prompt, run the following to create the storage account:
-
-    ```sh
-    LOCATION=$(echo $MEDIA_RESOURCE_GROUP | jq .location -r)
-    az storage account create --location $LOCATION --resource-group $MEDIA_RESOURCE_GROUP_NAME --name $MEDIA_STORAGE_ACCOUNT_NAME --kind Storage --sku Standard_LRS
-    ``` 
-
-8.  In the Cloud Shell pane, from the Bash prompt, run the following to retrieve the first key of the newly created storage account:
-
-    ```sh
-    MEDIA_STORAGE_ACCOUNT_KEY=$(az storage account keys list --account-name $MEDIA_STORAGE_ACCOUNT_NAME --resource-group $MEDIA_RESOURCE_GROUP_NAME --query '[0].[value]' --output tsv)
-    ``` 
-
-9.  In the Cloud Shell pane, from the Bash prompt, run the following to create a container named **sapbits** with the **Blob** access level in the newly created storage account:
-
-    ```sh
-    az storage container create --name sapbits --account-key $MEDIA_STORAGE_ACCOUNT_KEY --account-name $MEDIA_STORAGE_ACCOUNT_NAME --public-access blob
-    ``` 
-
-10. In the Azure portal, navigate to the newly created storage account. On the storage account blade, select **Blobs** in the **Blob service** section, select **sapbits** entry representing the container you created in the previous step, and then, on the **sapbits** blade, select **Upload**.
-
-11.  From the **Upload blob**, upload the HANA media files you downloaded from **SAP Software Downloads** at the beginning of this task.
-
-
-### Task 2: Prepare for a single node HANA deployment
-
-1.  If needed, in the Azure portal, restart the Cloud Shell. 
-
-2.  In the Cloud Shell pane, from the Bash prompt, run the following to download and extract the verified version of the Terraform binary (v.0.12.2) 
-
-    ```sh
-    curl -O https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_386.zip \
-    && unzip terraform_0.12.2_linux_386.zip \
-    && mkdir bin \
-    && mv terraform bin/
+    az account set --subscription '[subscription_ID]'
     ```
 
-3.  In the Cloud Shell pane, from the Bash prompt, run the following to generate the SSH key pair that will be used to secure access to Linux Azure VMs deployed in this lab:
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to create an Azure resource group that will contain the Azure VM hosting the lab deployment tools (replace the `[Azure_region]` placeholder with the name of the Azure region you intend to use for all Azure resources you will deploy in this lab):
 
     ```sh
-    ssh-keygen -t rsa -b 2048
-    ``` 
-
-4.  When prompted to specify the location of the file in which to save the key and to specify the passphrase protecting the content of the file, press the Enter key (three times). You should see the output similar to the following:
-
-    ```sh
-    Generating public/private rsa key pair.
-    Enter file in which to save the key (/home/m/.ssh/id_rsa):
-    Created directory '/home/m/.ssh'.
-    Enter passphrase (empty for no passphrase):
-    Enter same passphrase again:
-    Your identification has been saved in /home/m/.ssh/id_rsa.
-    Your public key has been saved in /home/m/.ssh/id_rsa.pub.
-    The key fingerprint is:
-    SHA256:2gAFQbAc2QFR4miR49Hdk6zyPH7YLWvbjiINEH5WScA m@cc-87c3f8bb-f6549dcd6-8mf42
-    The key's randomart image is:
-    +---[RSA 2048]----+
-    | .XXX== .        |
-    | OoE.= =         |
-    |+.B o . .        |
-    |.+ + o           |
-    |  + + . S        |
-    |   . + +         |
-    |    + = o        |
-    |   . = =o.       |
-    |    . ++=o       |
-    +----[SHA256]-----+
+    LOCATION='[Azure region]'
+    RGNAME='mcw-hana-on-azure-cli-RG'
+    az group create --location $LOCATION --name $RGNAME
     ```
 
-5.  In the Cloud Shell pane, from the Bash prompt, run the following to create an Azure AD service principal that will be used during deployment:
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to download into the Cloud Shell home directory the Azure Resource Manager template and the corresponding parameters file you will use for provisioning of the Azure VM that will host the lab deployment tools:
 
     ```sh
-    HANA_SP_NAME='hanav1snsp01'
-    HANA_SP_ID=$(az ad sp list --display-name $HANA_SP_NAME --query "[0].appId" --output tsv)
-    if ! [ -z "$HANA_SP_ID" ]
-    then
-        az ad sp delete --id $HANA_SP_ID
-    fi
-    HANA_SP=$(az ad sp create-for-rbac --name $HANA_SP_NAME)
-    ``` 
+    rm ubuntu_azurecli_vm_template.json -f
+    rm ubuntu_azurecli_vm_template.parameters.json -f
 
-6.  In the Cloud Shell pane, from the Bash prompt, run the following to set the variables that that will be used during deployment, representing, respectively, the identifier of the Azure subscription and its Azure AD tenant, as well as the application identifier and the corresponding password of the service principal you created in the previous step:
-
-    ```sh
-    export AZURE_SUBSCRIPTION_ID=$(az account show | jq -r '.id')
-    export AZURE_TENANT=$(az account show | jq -r '.tenantId')
-    export AZURE_CLIENT_ID=$(echo $HANA_SP | jq -r '.appId')
-    export AZURE_SECRET=$(echo $HANA_SP | jq -r '.password')
-
-    export ARM_SUBSCRIPTION_ID=$(az account show | jq -r '.id')
-    export ARM_TENANT_ID=$(az account show | jq -r '.tenantId')
-    export ARM_CLIENT_ID=$(echo $HANA_SP | jq -r '.appId')
-    export ARM_CLIENT_SECRET=$(echo $HANA_SP | jq -r '.password')
-    ``` 
-
-7.  In the Cloud Shell pane, from the Bash prompt, run the following to clone the repository hosting the Terraform and Ansible files that you will use for deployment:
-
-    ```sh
-    rm ~/sap-hana/ -r -f
-    git clone https://github.com/polichtm/sap-hana.git
-    ``` 
-
-8.  In the Cloud Shell pane, from the Bash prompt, run the following to change the current directory to the one hosting the Terraform and Ansible files that you will use for deployment:
-
-    ```sh
-    cd ~/sap-hana/deploy/vm/modules/single_node_hana/
-    ``` 
-
-9.  In the Cloud Shell pane, from the Bash prompt, run the following to retrieve the location in which you created the storage account in the previous task:
-
-    ```sh
-    MEDIA_RESOURCE_GROUP_NAME='hanaMedia-RG'
-    LOCATION=$(az group show --name $MEDIA_RESOURCE_GROUP_NAME --query location --output tsv)
-    ``` 
-
-10. In the Cloud Shell pane, from the Bash prompt, run the following to create the resource group that will host all resources deployed in this task:
-
-    ```sh
-    HANA_V1_SN_RESOURCE_GROUP_NAME='hanav1sn-RG'
-    az group create --location $LOCATION --name $HANA_V1_SN_RESOURCE_GROUP_NAME
-    ``` 
-
-    > **Note**: If needed, this step can be automated as well. Terraform (as well as Azure Resource Manager) templates can be configured to create resource groups.
-
-11. In the Cloud Shell pane, from the Bash prompt, run the following to generate a pseudo-random name that will be used as a prefix for DNS names assigned to public IP address resources deployed in this task:
-
-    ```sh
-    DOMAIN_NAME=hanav1sn$RANDOM
-    ``` 
-
-12. In the Cloud Shell pane, from the Bash prompt, run the following to specify the size of the Azure VM to be used to host the single node HANA instance deployed in this task:
-
-    ```sh
-    VM_SIZE='Standard_E8s_v3'
-    ``` 
-
-13. In the Cloud Shell pane, from the Bash prompt, run the following to specify the name of the root user account for the Linux VM deployed in this task:
-
-    ```sh
-    VM_USERNAME='labuser'
-    ``` 
-
-14. In the Cloud Shell pane, from the Bash prompt, run the following to add the values you specified to the terraform.tfvars file that contains variables used by Terraform deployment performed in this task:
-
-    ```sh
-    sed -i "s/VAR_RESOURCE_GROUP/$HANA_V1_SN_RESOURCE_GROUP_NAME/" ./terraform.tfvars
-    sed -i "s/VAR_LOCATION/$LOCATION/" ./terraform.tfvars
-    sed -i "s/VAR_DOMAIN_NAME/$DOMAIN_NAME/" ./terraform.tfvars
-    sed -i "s/VAR_VM_SIZE/$VM_SIZE/" ./terraform.tfvars
-    sed -i "s/VAR_VM_USERNAME/$VM_USERNAME/" ./terraform.tfvars
+    wget https://github.com/polichtm/MCW-SAP-HANA-on-Azure/tree/master/Hands-on%20lab/labfiles/sap-hana/templates/ubuntu_azurecli_vm_template.json
+    wget https://github.com/mpolicht/sap-hana/tree/master/templates/ubuntu_azurecli_vm_template.parameters.json
     ```
 
-15. In the Cloud Shell pane, from the Bash prompt, run the following to identify the name of the storage account containing the media files, which you configured and populated in the previous task of this exercise:
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to provision the Azure VM that will host the lab deployment tools:
 
     ```sh
-    STORAGE_ACCOUNT_NAME=$(az storage account list --resource-group $MEDIA_RESOURCE_GROUP_NAME --query "[?starts_with(name,'hana')].[name]" --output tsv)
+    az deployment group create \
+    --resource-group $RGNAME \
+    --template-file ubuntu_azurecli_vm_template.json \
+    --parameters @ubuntu_azurecli_vm_template.parameters.json
     ```
 
-16. In the Cloud Shell pane, from the Bash prompt, run the following to specify the names of the software packages you uploaded to the storage account in the previous task of this exercise:
+    > **Note**: When prompted, specify a user name and its password that you will use to sign in to the operating system of the Azure VM.
+
+    > **Note**: Wait until the provisioning completes. This should take about 3 minutes.
+
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to display the public IP address of the Azure VM you deployed in the previous step:
 
     ```sh
-    SAPCAR_LINUX_NAME='SAPCAR_1311-80000935.EXE'
-    SAPCAR_WINDOWS_NAME='SAPCAR_1311-80000938.EXE'
-    HDBSERVER_NAME='IMDB_SERVER100_122_30-10009569.SAR'
-    SAP_HOST_AGENT_NAME='SAPHOSTAGENT36_36-20009394.SAR'
-    HANA_STUDIO_WINDOWS_NAME='IMC_STUDIO2_122_30-80000323.SAR'
+    VMNAME=$(az vm list --resource-group $RGNAME --query '[].{Name:name}' -o tsv)
+    az vm show --show-details --resource-group $RGNAME --name $VMNAME --query publicIps -o tsv
     ```
 
-    > **Note**: The packages listed above might be superseded by newer versions. If so, ensure to adjust accordingly the names of these packages. 
+1.  From your computer, start the SSH client and connect via SSH to the newly provisioned Azure VM via the public IP address you identified in the previous step. When prompted to sign in, authentiate by using the credentials you provided during provisioning.
 
-17. In the Cloud Shell pane, from the Bash prompt, run the following to add the values you specified to the terraform.tfvars file that contains variables used by Terraform deployment performed in this task:
+1.  Within the SSH session to the Azure VM, run the following to update the package manager list of available packages and their versions (confirm when prompted whether to proceed):
 
     ```sh
-    SAPCAR_LINUX_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$SAPCAR_LINUX_NAME
-    SAPCAR_LINUX_URL_REGEX="$(echo $SAPCAR_LINUX_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    SAPCAR_WINDOWS_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$SAPCAR_WINDOWS_NAME
-    SAPCAR_WINDOWS_URL_REGEX="$(echo $SAPCAR_WINDOWS_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    HDBSERVER_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$HDBSERVER_NAME
-    HDBSERVER_URL_REGEX="$(echo $HDBSERVER_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    SAP_HOST_AGENT_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$SAP_HOST_AGENT_NAME
-    SAP_HOST_AGENT_URL_REGEX="$(echo $SAP_HOST_AGENT_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    HANA_STUDIO_WINDOWS_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$HANA_STUDIO_WINDOWS_NAME
-    HANA_STUDIO_WINDOWS_URL_REGEX="$(echo $HANA_STUDIO_WINDOWS_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-
-    sed -i "s/VAR_SAPCAR_LINUX_URL/$SAPCAR_LINUX_URL_REGEX/" ./terraform.tfvars
-    sed -i "s/VAR_SAPCAR_WINDOWS_URL/$SAPCAR_WINDOWS_URL_REGEX/" ./terraform.tfvars
-    sed -i "s/VAR_HDBSERVER_URL/$HDBSERVER_URL_REGEX/" ./terraform.tfvars
-    sed -i "s/VAR_HANA_STUDIO_WINDOWS_URL/$HANA_STUDIO_WINDOWS_URL_REGEX/" ./terraform.tfvars
+    sudo apt-get update
     ```
 
-18. In the Cloud Shell pane, from the Bash prompt, run the following to set the values of passwords for user accounts that will be used to manage the single-node HANA instance:
+1.  Within the SSH session to the Azure VM, run the following to upgrade the versions of the local packages (confirm when prompted whether to proceed):
 
     ```sh
-    SAPADMUSER_PASSWORD='Lab@pa55hv1.0'
-    ADMUSER_PASSWORD='Lab@pa55hv1.0'
-    DBSYSTEMUSER_PASSWORD='Lab@pa55hv1.0'
-    DBXSAADMIN_PASSWORD='Lab@pa55hv1.0'
-    DBSYSTEMTENANTUSER_PASSWORD='Lab@pa55hv1.0'
-    DBSHINEUSER_PASSWORD='Lab@pa55hv1.0'
-    WINDOWS_ADMIN_PASSWORD='Lab@pa55hv1.0'
+    sudo apt-get upgrade
     ```
 
-19. In the Cloud Shell pane, from the Bash prompt, run the following to add the password values to the terraform.tfvars file that contains variables used by Terraform deployment performed in this task:
+1.  Within the SSH session to the Azure VM, run the following to install Azure CLI:
 
     ```sh
-    sed -i "s/VAR_SAPADMUSER_PASSWORD/$SAPADMUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_ADMUSER_PASSWORD/$ADMUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBSYSTEMUSER_PASSWORD/$DBSYSTEMUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBXSAADMIN_PASSWORD/$DBXSAADMIN_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBSYSTEMTENANTUSER_PASSWORD/$DBSYSTEMTENANTUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBSHINEUSER_PASSWORD/$DBSYSTEMTENANTUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_WINDOWS_ADMIN_PASSWORD/$WINDOWS_ADMIN_PASSWORD/" ./terraform.tfvars
+    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     ```
 
-### Task 3: Perform the single node HANA deployment
-
-1.  In the Cloud Shell pane, from the Bash prompt, run the following to initialize Terraform modules and provider plugins necessary to perform Terraform-based single-node HANA deployment:
+1.  Within the SSH session to the Azure VM, run the following to install the latest version of Terraform:
 
     ```sh
-    ~/bin/terraform init
+    TER_VER='0.13.4'
+    wget https://releases.hashicorp.com/terraform/${TER_VER}/terraform_${TER_VER}_linux_amd64.zip
+    sudo apt install unzip
+    unzip terraform_${TER_VER}_linux_amd64.zip
+    sudo mv terraform /usr/local/bin/
     ```
 
-2.  In the Cloud Shell pane, from the Bash prompt, run the following to identify changes to be performed by the Terraform-based single-node HANA deployment:
+1.  Within the SSH session to the Azure VM, run the following to install jq (confirm when prompted whether to proceed):
 
     ```sh
-    ~/bin/terraform plan
+    sudo apt-get install jq
     ```
 
-3.  In the Cloud Shell pane, from the Bash prompt, run the following to initiate Terraform-based single-node HANA deployment:
+1.  Within the SSH session to the Azure VM, run the following to install Ansible (confirm when prompted whether to proceed):
 
     ```sh
-    ~/bin/terraform apply -auto-approve
+    sudo apt install ansible
     ```
 
-   > **Note**: The deployment takes about 30 minutes to complete. 
-
-   > **Note**: If your deployment fails with the error **Cannot resolve host name**, error message, the retry the deployment. This issue is a result of waagent not setting up hostname in a stable way, which is expected to be fixed in the next image release of SUSE Linux Enterprise Server. For details, refer to <https://github.com/Azure/WALinuxAgent/pull/1832>.
-
-
-## Exercise 2: Validate and remove the single node HANA deployment
-
-Duration: 20 minutes
-
-In this exercise, you will validate the single-node HANA deployment you performed in the previous exercise by using the Windows bastion host. Once you successfully validate the deployment, you will remove all of its resources.
-
-
-### Task 1: Connect to the single node HANA instance by using SAP HANA Studio
-
-1.  From the lab computer, in the Azure portal, navigate to the blade of the **hn1-win-bastion** Azure VM operating as the Windows bastion host and initiate a Remote Desktop session. When prompted, sign in with the following credentials:
-
-    -   Username: **bastion_user**
-
-    -   Password: **Lab\@pa55hv1.0**
-
-    > **Note**: The user name of the Windows bastion host is set in **/deploy/vm/modules/single_node_hana/variables.tf**
-
-2.  Within the Remote Desktop session to hn1-win-bastion, start **Notepad**, and open the **hosts** file located in **C:\\Windows\\System32\\drivers\\etc**.
-
-3.  Add the following entries to the host file, save your changes, and close the file:
+1.  Within the SSH session to the Azure VM, run the following to install Git:
 
     ```sh
-    10.0.0.6	hn1-hdb0        
+    sudo apt-get install git
     ```
 
-    > **Note**: `10.0.0.6` is the private IP address assigned to the network interface of the Azure VM hosting the HANA instance.
+### Task 2: Deploy a single-node HANA instance by using Terraform and Ansible
 
-4.  Within the Remote Desktop session, start SAP HANA Studio.
+1.  In the SSH session to the Azure VM you provisioned in the previous task, run the following to generate the SSH key pair that will be used to secure access to Linux Azure VMs deployed in this lab (when prompted to specify the location of the file in which to save the key and to specify the passphrase protecting the content of the file, press the **Enter** key three times): 
 
-5.  When prompted to select a workspace, accept the default value, and select **Launch**.
+     ```sh
+     ssh-keygen -t rsa -b 2048
+     ``` 
 
-    ![In the Workspace Launcher, the Workspace is defined as C:\\Users\\bastion_user\\hdbstudio.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image3.png "Workspace Launcher")
-
-6.  When prompted to provide a password hint, select **No**.
-
-    ![A Password Hint Pop-up asks if you want to provide a password hint.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image4.png "Password Hint Pop-up")
-
-7.  On the **Overview** page, select **Open Administration Console**.
-
-    ![The Open Administration Console link displays on the Overview page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image5.png "Overview page")
-
-8.  In the **SAP HANA Administration Console**, expand the **Systems** menu, and select **Add System**.
-
-    ![The SAP HANA Administration Console displays the empty Systems and Properties nodes, and the Systems menu.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image6.png "SAP HANA Administration Console")
-
-9.  In the Specify System dialog box, specify the following information, and select **Next**.
-
-    -   Host Name: **hn1-hdb0**
-
-    -   Instance number: **01**
-
-        ![The Specify System dialog box displays with the previously defined settings.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image7.png "Specify System dialog box")
-
-10. In the **Connection Properties** dialog box, select the **Authentication by database user** option, specify the following information, and select **Finish**.
-
-    -   User Name: **SYSTEM**
-
-    -   Password: **Lab\@pa55hv1.0**
-
-        ![The Connection Properties dialog box displays with the previously defined settings.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image8.png "Connection Properties dialog box")
-
-11. Once you successfully connected to **hn1-hdb0** as **SYSTEM**, select the **HN1 (SYSTEM)** node and select the **Administration** icon in the Systems toolbar and then select **Open Default Administration**.
-
-    ![On the Systems node toolbar, the Administration icon is selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image9.png "Systems toolbar")
-
-12. Review the **Administration** status on the Overview tab and ensure that all services are started.
-
-    ![In the Configuration and Monitoring view, on the Overview tab, all services are started, active, and in sync.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image10.png "SAP HANA Administration Console, Overview tab")
-
-13. Switch to the **Alerts** tab, and verify they are no alerts indicating operational issues.
-
-    ![On the SAP HANA Administration Console Alerts tab, no operational issues display.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image11.png "SAP HANA Administration Console, Alerts tab")
-
-
-### Task 2: Remove the single node HANA deployment
-
-1.  Switch to the lab computer and, in the Cloud Shell pane, from the Bash prompt, run the following to change the current directory to the one hosting the Terraform and Ansible files that you used for the single node HANA deployment:
+1.  In the SSH session to the Azure VM you provisioned in the previous task, run the following to clone the code you will use to perform the deployment and switch to the directory containing the deployment files:
 
     ```sh
-    cd ~/sap-hana/deploy/vm/modules/single_node_hana/
-    ``` 
-
-    > **Note**: If needed, in the Azure portal, restart the Cloud Shell. 
-
-2.  In the Cloud Shell pane, from the Bash prompt, run the following to remove all resources provisioned by Terraform-based single-node HANA deployment:
-
-    ```sh
-    terraform destroy -auto-approve
+    mkdir ~/projects/ && cd $_
+    git clone https://github.com/Azure/sap-hana.git
+    cd sap-hana/
     ```
 
-3.  When prompted, type **yes** and press the Enter key to continue with the removal of the deployed resources.
-
-   > **Note**: Do not wait for the completion of the removal but instead proceed to the next exercise.
-
-
-## Exercise 3: Deploy highly-available HANA instances by using Terraform and Ansible
-
-Duration: 90 minutes
-
-In this exercise, you will implement a highly-available deployment of SAP HANA on Azure virtual machines (VMs). Following initial configuration of Terraform configuration files, the deployment will be fully automated, including installation of all necessary SAP HANA components. 
-
-You will leverage a number of artifacts that you already implemented earlier in this lab, including:
-
--   Terraform binaries which you uploaded into your Cloud Shell home directory in the first task of the first exercise
-
--   HANA software that you uploaded to an Azure Storage account in the first task of the first exercise
-
--   SSH key pair you generated in the second task of the first exercise
-
-
-### Task 1: Prepare for a highly-available HANA deployment
-
-1.  If needed, in the Azure portal, start the Cloud Shell. 
-
-2.  In the Cloud Shell pane, from the Bash prompt, run the following to clone the repository hosting the Terraform and Ansible files that you will use for deployment:
+1.  In the SSH session to the Azure VM, run the following to extend the **$PATH** environment variable to include the location of the utility scripts that are part of the cloned repo:
 
     ```sh
-    cd ~
-    rm ~/sap-hana/ -r -f
-    git clone https://github.com/polichtm/sap-hana.git
-    ``` 
-    
-3.  In the Cloud Shell pane, from the Bash prompt, run the following to change the current directory to the one hosting the Terraform and Ansible files that you will use for deployment:
-
-    ```sh
-    cd ~/sap-hana/deploy/vm/modules/ha_pair/
-    ``` 
-
-4.  In the Cloud Shell pane, from the Bash prompt, run the following to create an Azure AD service principal that will be used during deployment:
-
-    ```sh
-    HANA_SP_NAME='hanav1hasp01'
-    HANA_SP_ID=$(az ad sp list --display-name $HANA_SP_NAME --query "[0].appId" --output tsv)
-    if ! [ -z "$HANA_SP_ID" ]
-    then
-        az ad sp delete --id $HANA_SP_ID
-    fi
-    HANA_SP=$(az ad sp create-for-rbac --name $HANA_SP_NAME)
-    ``` 
-
-5.  In the Cloud Shell pane, from the Bash prompt, run the following to set the variables that that will be used during deployment, representing, respectively, the identifier of the Azure subscription and its Azure AD tenant, as well as the application identifier and the corresponding password of the service principal you created in the previous step:
-
-    ```sh
-    export AZURE_SUBSCRIPTION_ID=$(az account show | jq -r '.id')
-    export AZURE_TENANT=$(az account show | jq -r '.tenantId')
-    export AZURE_CLIENT_ID=$(echo $HANA_SP | jq -r '.appId')
-    export AZURE_SECRET=$(echo $HANA_SP | jq -r '.password')
-
-    export ARM_SUBSCRIPTION_ID=$(az account show | jq -r '.id')
-    export ARM_TENANT_ID=$(az account show | jq -r '.tenantId')
-    export ARM_CLIENT_ID=$(echo $HANA_SP | jq -r '.appId')
-    export ARM_CLIENT_SECRET=$(echo $HANA_SP | jq -r '.password')
-    ``` 
-
-6.  In the Cloud Shell pane, from the Bash prompt, run the following to retrieve the location in which you created the storage account in the first task of the first exercise of this lab:
-
-    ```sh
-    MEDIA_RESOURCE_GROUP_NAME='hanaMedia-RG'
-    LOCATION=$(az group show --name $MEDIA_RESOURCE_GROUP_NAME --query location --output tsv)
-    ``` 
-
-7.  In the Cloud Shell pane, from the Bash prompt, run the following to create the resource group that will host all resources deployed in this task:
-
-    ```sh
-    HANA_V1_HA_RESOURCE_GROUP_NAME='hanav1ha-RG'
-    az group create --location $LOCATION --name $HANA_V1_HA_RESOURCE_GROUP_NAME
-    ``` 
-
-8.  In the Cloud Shell pane, from the Bash prompt, run the following to generate a pseudo-random name that will be used as a prefix for DNS names assigned to public IP address resources deployed in this task:
-
-    ```sh
-    DOMAIN_NAME=hanav1ha$RANDOM
-    ``` 
-
-9.  In the Cloud Shell pane, from the Bash prompt, run the following to specify the size of the Azure VMs to be used to host the highly available HANA instances deployed in this task:
-
-    ```sh
-    VM_SIZE='Standard_E8s_v3'
-    ``` 
-
-10. In the Cloud Shell pane, from the Bash prompt, run the following to specify the name of the root user account for the Linux VMs deployed in this task:
-
-    ```sh
-    VM_USERNAME='labuser'
-    ``` 
-
-11. In the Cloud Shell pane, from the Bash prompt, run the following to add the values you specified to the terraform.tfvars file that contains variables used by Terraform deployment performed in this task:
-
-    ```sh
-    sed -i "s/VAR_RESOURCE_GROUP/$HANA_V1_HA_RESOURCE_GROUP_NAME/" ./terraform.tfvars
-    sed -i "s/VAR_LOCATION/$LOCATION/" ./terraform.tfvars
-    sed -i "s/VAR_DOMAIN_NAME/$DOMAIN_NAME/" ./terraform.tfvars
-    sed -i "s/VAR_VM_SIZE/$VM_SIZE/" ./terraform.tfvars
-    sed -i "s/VAR_VM_USERNAME/$VM_USERNAME/" ./terraform.tfvars
+    source util/source_path.sh
     ```
 
-12. In the Cloud Shell pane, from the Bash prompt, run the following to identify the name of the storage account containing the media files, which you configured and populated in the previous task of this exercise:
+1.  In the SSH session to the Azure VM you provisioned in the previous task, run the following to authenticate to the Azure AD tenant associated with your Azure subscription:
 
     ```sh
-    STORAGE_ACCOUNT_NAME=$(az storage account list --resource-group $MEDIA_RESOURCE_GROUP_NAME --query "[?starts_with(name,'hana')].[name]" --output tsv)
+    az login
     ```
 
-13. In the Cloud Shell pane, from the Bash prompt, run the following to specify the names of the software packages you uploaded to the storage account in the previous task of this exercise:
+1.  Note the code displayed as the output of the previous command, switch to your lab computer, open another tab in the browser window displaying the Azure portal, navigate to [the Microsoft Device Login page](https://microsoft.com/devicelogin) and, when prompted, enter the code and select **Next**.
+
+1.  When prompted, sign in with credentials you are using in this lab and close the browser tab.
+
+1.  Switch back to the SSH session to the Azure VM you provisioned in the previous task and run the following to identify the current Azure subscription:
 
     ```sh
-    SAPCAR_LINUX_NAME='SAPCAR_1311-80000935.EXE'
-    SAPCAR_WINDOWS_NAME='SAPCAR_1311-80000938.EXE'
-    HDBSERVER_NAME='IMDB_SERVER100_122_30-10009569.SAR'
-    SAP_HOST_AGENT_NAME='SAPHOSTAGENT36_36-20009394.SAR'
-    HANA_STUDIO_WINDOWS_NAME='IMC_STUDIO2_122_30-80000323.SAR'
+    check_subscription.sh
     ```
 
-    > **Note**: The packages listed above might be superseded by newer versions. If so, ensure to adjust accordingly the names of these packages. 
-
-14. In the Cloud Shell pane, from the Bash prompt, run the following to add the values you specified to the terraform.tfvars file that contains variables used by Terraform deployment performed in this task:
+1.  If needed, in the SSH session to the Azure VM, run the following to select the Azure subscription in which you will provision the Azure resources in this lab (replace the `[subscription_ID]` placeholder with the value of the subscriptionID parameter of the Azure subscription you are using in this lab):
 
     ```sh
-    SAPCAR_LINUX_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$SAPCAR_LINUX_NAME
-    SAPCAR_LINUX_URL_REGEX="$(echo $SAPCAR_LINUX_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    SAPCAR_WINDOWS_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$SAPCAR_WINDOWS_NAME
-    SAPCAR_WINDOWS_URL_REGEX="$(echo $SAPCAR_WINDOWS_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    HDBSERVER_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$HDBSERVER_NAME
-    HDBSERVER_URL_REGEX="$(echo $HDBSERVER_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    SAP_HOST_AGENT_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$SAP_HOST_AGENT_NAME
-    SAP_HOST_AGENT_URL_REGEX="$(echo $SAP_HOST_AGENT_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-    HANA_STUDIO_WINDOWS_URL='https://'$STORAGE_ACCOUNT_NAME'.blob.core.windows.net/sapbits/'$HANA_STUDIO_WINDOWS_NAME
-    HANA_STUDIO_WINDOWS_URL_REGEX="$(echo $HANA_STUDIO_WINDOWS_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
-
-    sed -i "s/VAR_SAPCAR_LINUX_URL/$SAPCAR_LINUX_URL_REGEX/" ./terraform.tfvars
-    sed -i "s/VAR_SAPCAR_WINDOWS_URL/$SAPCAR_WINDOWS_URL_REGEX/" ./terraform.tfvars
-    sed -i "s/VAR_HDBSERVER_URL/$HDBSERVER_URL_REGEX/" ./terraform.tfvars
-    sed -i "s/VAR_HANA_STUDIO_WINDOWS_URL/$HANA_STUDIO_WINDOWS_URL_REGEX/" ./terraform.tfvars    
+    az account set --subscription '[subscription_ID]':
     ```
 
-15. In the Cloud Shell pane, from the Bash prompt, run the following to set the values of passwords for user accounts that will be used to manage the single-node HANA instance:
+1.  In the SSH session to the Azure VM, run the following to create an Azure AD service principal that will be used during deployment:
 
     ```sh
-    SAPADMUSER_PASSWORD='Lab@pa55hv1.0'
-    ADMUSER_PASSWORD='Lab@pa55hv1.0'
-    DBSYSTEMUSER_PASSWORD='Lab@pa55hv1.0'
-    DBXSAADMIN_PASSWORD='Lab@pa55hv1.0'
-    DBSYSTEMTENANTUSER_PASSWORD='Lab@pa55hv1.0'
-    DBSHINEUSER_PASSWORD='Lab@pa55hv1.0'
-    WINDOWS_ADMIN_PASSWORD='Lab@pa55hv1.0'
-    HA_CLUSTER_NODES_PASSWORD='Lab@pa55hv1.0'
+    create_service_principal.sh sp-hanav2sn
     ```
 
-16. In the Cloud Shell pane, from the Bash prompt, run the following to add the password values to the terraform.tfvars file that contains variables used by Terraform deployment performed in this task:
+1.  In the SSH session to the Azure VM, run the following to export the environment variables designating the service principal you created in the previous step:
 
     ```sh
-    sed -i "s/VAR_SAPADMUSER_PASSWORD/$SAPADMUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_ADMUSER_PASSWORD/$ADMUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBSYSTEMUSER_PASSWORD/$DBSYSTEMUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBXSAADMIN_PASSWORD/$DBXSAADMIN_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBSYSTEMTENANTUSER_PASSWORD/$DBSYSTEMTENANTUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_DBSHINEUSER_PASSWORD/$DBSYSTEMTENANTUSER_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_WINDOWS_ADMIN_PASSWORD/$WINDOWS_ADMIN_PASSWORD/" ./terraform.tfvars
-    sed -i "s/VAR_HA_CLUSTER_NODES_PASSWORD/$HA_CLUSTER_NODES_PASSWORD/" ./terraform.tfvars
+    source set-sp.sh
     ```
 
-
-### Task 2: Perform the highly-available HANA deployment
-
-1.  In the Cloud Shell pane, from the Bash prompt, run the following to initialize Terraform modules and provider plugins necessary to perform Terraform-based single-node HANA deployment:
+1.  In the SSH session to the Azure VM, run the following to download into the current directory the Azure Resource Manager template and the corresponding parameters file you will use for provisioning of the single-node SAP HANA lab environment:
 
     ```sh
-    ~/bin/terraform init
+    curl https://github.com/polichtm/MCW-SAP-HANA-on-Azure/tree/master/Hands-on%20lab/labfiles/sap-hana/templates/template-sn1.json  --output ./deploy/template_samples/template-sn1.json
     ```
 
-2.  In the Cloud Shell pane, from the Bash prompt, run the following to identify changes to be performed by the Terraform-based highly-available HANA deployment:
+    > **Note**: The template has the following content:
+
+    ```json
+    {
+      "infrastructure": {
+        "region": "eastus",
+        "resource_group": {
+          "is_existing": "false",
+          "name": "hanav2-sn-RG"
+        },
+        "ppg": {
+          "is_existing": "false",
+          "name": "hanav2-sn-ppg"
+        },
+        "vnets": {
+          "management": {
+            "is_existing": "false",
+            "name": "hanav2-sn-vnet-mgmt",
+            "address_space": "10.0.0.0/16",
+            "subnet_mgmt": {
+              "is_existing": "false",
+              "name": "subnet-mgmt",
+              "prefix": "10.0.0.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-mgmt",
+                "allowed_ips": [
+                  "0.0.0.0/0"
+                ]
+              }
+            }
+          },
+          "sap": {
+            "is_existing": "false",
+            "name": "hanav2-sn-vnet-sap",
+            "address_space": "10.1.0.0/16",
+            "subnet_admin": {
+              "is_existing": "false",
+              "name": "subnet-admin",
+              "prefix": "10.1.1.0/24",
+              "nsg": {
+               "is_existing": "false",
+                "name": "nsg-admin"
+              }
+            },
+            "subnet_db": {
+              "is_existing": "false",
+              "name": "subnet-db",
+              "prefix": "10.1.2.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-db"
+              }
+            },
+            "subnet_app": {
+              "is_existing": "false",
+              "name": "subnet-app",
+              "prefix": "10.1.3.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-app"
+              }
+            }
+          }
+        }
+      },
+      "jumpboxes": {
+        "windows": [
+          {
+            "name": "hanav2jmp-vm0",
+            "destroy_after_deploy": "false",
+            "size": "Standard_D2s_v3",
+            "disk_type": "StandardSSD_LRS",
+            "os": {
+              "publisher": "MicrosoftWindowsServer",
+              "offer": "WindowsServer",
+              "sku": "2019-Datacenter"
+            },
+            "authentication": {
+              "type": "password",
+              "username": "azureadm",
+              "password": "Sap@hana2019!"
+            },
+            "components": []
+          }
+        ],
+        "linux": []
+      },
+      "databases": [
+        {
+          "platform": "HANA",
+          "db_version": "2.00.043",
+          "os": {
+            "publisher": "suse",
+            "offer": "sles-sap-12-sp5",
+            "sku": "gen1"
+          },
+          "size": "Demo",
+          "filesystem": "xfs",
+          "high_availability": false,
+          "authentication": {
+            "type": "key",
+            "username": "azureadm"
+          },
+          "instance": {
+            "sid": "HN1",
+            "instance_number": "00"
+          },
+          "credentials": {
+            "db_systemdb_password": "Manager1",
+            "os_sidadm_password": "Help4you",
+            "os_sapadm_password": "Help4you",
+            "xsa_admin_password": "Manager1",
+            "cockpit_admin_password": "Manager1"
+          },
+          "dbnodes": [
+            {
+              "name": "hdb1",
+              "role": "worker"
+            }
+          ],
+          "components": {
+            "hana_database": [],
+            "hana_client_linux": [],
+            "xs": [
+               "xsac_ui5_sb",
+               "xsac_ui5_fesv6",
+               "xsac_portal_serv",
+               "xsac_services",
+               "xsac_mess_srv",
+               "xsac_alm_pi_ui",
+               "xsac_xsa_cockpit"
+            ] 
+          },
+          "xsa": {
+            "routing": "ports"
+          },
+          "shine": {
+            "email": "shinedemo@microsoft.com"
+          },
+          "loadbalancer": {}
+        }
+      ],
+      "software": {
+        "storage_account_sapbits": {
+          "is_existing": false,
+          "account_tier": "Standard",
+          "account_replication_type": "LRS",
+          "account_kind": "Storage",
+          "blob_container_name": "bits",
+          "container_access_type": "private"
+        },
+        "downloader": {
+          "credentials": {
+            "sap_user": "",
+            "sap_password": ""
+          },
+          "scenarios": [
+            {
+              "scenario_type": "DB",
+              "product_name": "HANA",
+              "product_version": "2.0",
+              "os_type": "LINUX_X64",
+              "os_version": "SLES12.3",
+              "components": [
+                "PLATFORM"
+              ]
+            },
+            {
+              "scenario_type": "RTI",
+              "product_name": "RTI",
+              "os_type": "LINUX_X64"
+            },
+            {
+              "scenario_type": "BASTION",
+              "os_type": "NT_X64"
+            }
+          ],
+          "debug": {
+            "enabled": false,
+            "cert": "charles.pem",
+            "proxies": {
+              "http": "http://127.0.0.1:8888",
+              "https": "https://127.0.0.1:8888"
+            }
+          }
+        }
+      },
+      "sshkey": {
+        "path_to_public_key": "~/.ssh/id_rsa.pub",
+        "path_to_private_key": "~/.ssh/id_rsa"
+      },
+      "options": {
+        "enable_secure_transfer": true,
+        "ansible_execution": true,
+        "enable_prometheus": false
+      }
+    }
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to set the credentials necessary to access SAP downloads site (replace the `[SID]` placeholder with your SAP ID and the `[SID_password]` placeholder with the corresponding password):
 
     ```sh
-    ~/bin/terraform plan
+    set_sap_download_credentials.sh [SID] [SID_password] template-sn1
     ```
 
-    > **Note**: If you receive an error message regarding listing service principal, wait for 5 minutes and try running the above command again.
-
-3.  In the Cloud Shell pane, from the Bash prompt, run the following to initiate Terraform-based highly-available HANA deployment:
+1.  In the SSH session to the Azure VM, run the following to generate the name of the storage account that will host the SAP media files and add it to the Azure Resource Manager template you are using in this deployment:
 
     ```sh
-    ~/bin/terraform apply -auto-approve
+    STORAGE_ACCOUNT_NAME=hana$RANDOM$RANDOM$RANDOM
+    sed -i "s/VAR_STORAGE_ACCOUNT_NAME/$STORAGE_ACCOUNT_NAME/" ./deploy/template_samples/template-sn1.json
     ```
 
-   > **Note**: The deployment takes about 60 minutes to complete. 
-
-   > **Note**: If the deployment fails, in the Azure portal, delete the **hanav1ha-RG** resource group and re-run the first task.
-
-
-## Exercise 4: Validate and remove the deployment of the highly-available HANA instances
-
-Duration: 60 minutes
-
-In this exercise, you will validate the deployment of the highly-available HANA instance you performed in the previous exercise by using the Windows bastion host. Once you successfully validate the deployment, you will remove all of its resources.
-
-
-### Task 1: Connect to the highly-available HANA instances by using SAP HANA Studio
-
-1.  From the lab computer, in the browser displaying the Azure portal, navigate to the blade of the **hn1-win-bastion** Azure VM operating as the Windows bastion host and initiate a Remote Desktop session. When prompted, sign in with the following credentials:
-
-    -   Username: **bastion_user**
-
-    -   Password: **Lab\@pa55hv1.0**
-
-    > **Note**: The user name of the Windows bastion host is set in **/deploy/vm/modules/ha_pair/variables.tf**.
-
-
-2.  Within the Remote Desktop session to hn1-win-bastion, navigate to the **Local Server** view in the **Server Manager** window and disable **IE Enhanced Security Configuration**.
-
-3.  Within the Remote Desktop session to hn1-win-bastion, start **Notepad**, and open the **hosts** file located in **C:\\Windows\\System32\\drivers\\etc**.
-
-4.  Add the following entries to the host file, save your changes, and close the file:
+1.  In the SSH session to the Azure VM, run the following to initialize Terraform environment:
 
     ```sh
-    10.0.0.13	hdbha
+    terraform_v2.sh init
     ```
 
-    > **Note**: `10.0.0.13` is the IP address assigned to the front end of the Azure Internal Load Balancer that distributes network traffic to the Azure VMs hosting highly-available HANA instances.
-
-5.  Within the Remote Desktop session to hn1-win-bastion, start SAP HANA Studio.
-
-6.  When prompted to select a workspace, accept the default value, and select **Launch**.
-
-    ![In the Workspace Launcher, the Workspace is defined as C:\\Users\\bastion_user\\hdbstudio.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image3.png "Workspace Launcher")
-
-7.  When prompted to provide a password hint, select **No**.
-
-    ![A Password Hint Pop-up asks if you want to provide a password hint.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image4.png "Password Hint Pop-up")
-
-8.  On the **Overview** page, select **Open Administration Console**.
-
-    ![The Open Administration Console link displays on the Overview page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image5.png "Overview page")
-
-9.  In the **SAP HANA Administration Console**, expand the **Systems** menu, and select **Add System**.
-
-    ![The SAP HANA Administration Console displays the empty Systems and Properties nodes, and the Systems menu.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image6.png "SAP HANA Administration Console")
-
-10. In the Specify System dialog box, specify the following information, and select **Next**.
-
-    -   Host Name: **hdbha**
-
-    -   Instance number: **01**
-
-        ![The Specify System dialog box displays with the previously defined settings.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image12.png "Specify System dialog box")
-
-11. In the **Connection Properties** dialog box, select the **Authentication by database user** option, specify the following information, and select **Finish**.
-
-    -   User Name: **SYSTEM**
-
-    -   Password: **Lab\@pa55hv1.0**
-
-        ![The Connection Properties dialog box displays with the previously defined settings.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image8.png "Connection Properties dialog box")
-
-12. Once you successfully connected to **HN1** as **SYSTEM**, select the **HN1 (SYSTEM)** node and select the **System Monitor** icon in the Systems toolbar.
-
-    ![On the Systems node toolbar, the System Monitor icon is selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image13.png "Systems toolbar")
-
-13. Review the **System Monitor** view.
-
-    ![The SAP HANA Administration Console System Monitor tab displays the System Monitor status.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image14.png "SAP HANA Administration Console, System Monitor tab")
-
-    > **Note**: It typically takes a few minutes before the operational state is fully identified.
-   
-14. Right select the **HN1 (SYSTEM)** node and in the right select menu. Next, select **Configuration and Monitoring** followed by **Open Administration**.
-
-    ![On the Systems node, HN1 (System) is selected. From its right-click menu, Configuration and Monitoring is selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image15.png "Systems node")
-
-15. In the **Configuration and Monitoring** view, examine the **Overview** tab. Verify that all services are started, active, and in sync. You might need to wait a few minutes before the operational state is identified.
-
-    ![In the Configuration and Monitoring view, on the Overview tab, all services are started, active, and in sync.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image16.png "SAP HANA Administration Console, Overview tab")
-
-16. Switch to the **Alerts** tab, and verify they are not indicating any operational issues.
-
-    ![On the SAP HANA Administration Console Alerts tab, no operational issues display.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image17.png "SAP HANA Administration Console, Alerts tab")
-
-
-### Task 2: Connect to the highly-available HANA instances by using Hawk
-
-1.  From the lab computer, in the Azure portal, navigate to the **Virtual machines** blade. 
-
-2.  On the **Virtual machines** blade, click the **hn1-hdb0** entry and, on the **hn1-hdb0** blade, note the value of the **DNS name** entry. 
-
-3.  In the Azure portal, start a Bash session within the Cloud Shell and type the following entry (where the `<dns_name>` placeholder designates the fully qualified DNS name assigned to the public IP address assigned to the Azure VM, which you copied in the previous step):
+1.  In the SSH session to the Azure VM, run the following to create an execution plan for the Terraform deployment:
 
     ```sh
-    ssh labuser@<dns_name>
+    terraform_v2.sh plan template-sn1
     ```
 
-4.  When prompted whether you want to continue connecting, type **yes** and press Enter.
-
-5.  Within the SSH session, reset the password of the **hacluster** account to **Lab\@pa55hv1.0** by running the following and following the prompts:
+1.  In the SSH session to the Azure VM, run the following to initiate the Terraform deployment:
 
     ```sh
-    sudo passwd hacluster
+    terraform_v2.sh apply template-sn1
     ```
 
-6.  Switch back to the **Virtual machines** blade, click the **hn1-hdb1** entry and, on the **hn1-hdb1** blade, note the value of the **DNS name** entry. 
+    > **Note**: Wait for the deployment to complete. This might take about 90 minutes.
 
-7.  In the Azure portal, start another Bash session within the Cloud Shell and type the following entry (where the `<dns_name>` placeholder designates the fully qualified DNS name assigned to the public IP address assigned to the Azure VM, which you copied in the previous step):
+    > **Note**: Once the deployment completes, the output will include the public IP address of the Linux jumpbox VM included in the Terraform deployment and its root account name, which you will use in the next task. 
+
+
+### Task 3: Review the deployment of a single-node HANA instance
+
+1.  In the SSH session to the Azure VM, run the following to identify the private IP addresses of the **hdb1-0** Azure VM:
 
     ```sh
-    ssh labuser@<dns_name>
+    RGNAME='hanav2-sn-RG'
+    VMNAME='hdb1-0'
+    az vm show --show-details --resource-group $RGNAME --name $VMNAME --query privateIps --output tsv
     ```
 
-8.  When prompted whether you want to continue connecting, type **yes** and press Enter.
+    > **Note**: The **hdb1-0** Azure VM has two IP addresses **10.1.1.10** and **10.1.2.10**. The first one is meant to be used for management. You will use this IP address in this exercise. 
 
-9.  Within the SSH session, reset the password of the **hacluster** account to **Lab\@pa55hv1.0** by running the following and following the prompts:
+1.  In the SSH session to the Azure VM, run the following to connect via SSH to the Linux jumpbox VM, which public IP address you identified in the previous task (replace the `[IP_address]` placeholder with the value of the public IP address and confirm when prompted whether to proceed):
 
     ```sh
-    sudo passwd hacluster
+    ssh azureadm@[IP_address]
     ```
 
-10. Switch to the Remote Desktop session to hn1-win-bastion Azure VM, start **Internet Explorer**, and browse to **https://hn1-hdb0:7630**. On the **SUSE Hawk Sign in** page, sign in as **hacluster** with the password **Lab\@pa55hv1.0**.
+1.  From within the SSH session to the Linux jumpbox Azure VM, connect to the **hdb1-0** Azure VM running HANA by using its private IP address you identified earlier in this task:
 
-    > **Note**: Ignore any prompts regarding problems with security certificate of the target website. It is expected in this scenario.
+    ```sh
+    ssh azureadm@10.1.1.10
+    ```
 
-11. Once you sign in, review the **Resources** tab on the **Status** page.
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you** (HANA SID in the lab environment is set to **HN1**):
 
-    ![On the Status page, the Resources tab shows several resources in varying states of readiness.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image18.png "Status page, Resources tab")
+    ```sh
+    su - hn1adm
+    ```
 
-12. Next, switch to the **Nodes** tab on the **Status** page.
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to identify the version of the local HANA instance:
 
-    ![On the Status page, the Nodes tab is selected, and displays two nodes..](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image19.png "Status page, Nodes tab")
+    ```sh
+    HDB version
+    ```
 
-13. Switch back to the **Resources** and use the magnifying glass icon to examine the state of the HANA resources starting with the **SAPHANATopology**.
+    > **Note**: The output should resemble the following:
 
-    ![A page displays with the SAPHANATopology resource details.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image20.png "SAPHANATopology resource details page")
+    ```sh
+    HDB version info:
+      version:             2.00.050.00.1592305219
+      branch:              fa/hana2sp05
+      machine config:      linuxx86_64
+      git hash:            7daf311088b6a86552a9b0152c9f178d9cfe2ac7
+      git merge time:      2020-06-16 13:00:19
+      weekstone:           0000.00.0
+      cloud edition:       0000.00.00
+      compile date:        2020-06-16 13:10:42
+      compile host:        ld5146
+      compile type:        rel
+    ` ``
 
-14. Close the **SAPHANATopology** pane and use the magnifying glass icon to examine the state of the **SAPHana** resource.
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to verify that HANA is operational by listing all HANA processes:
 
-    ![A page displays with the SAPHana resource details.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image21.png "SAPHana resource details page")
+    ```sh
+    ps -le |grep hdb
+    ```
+
+    > **Note**: The output should resemble the following:
+
+    ```sh
+    hn1adm@hdb1-1:/usr/sap/HN1/HDB00> ps -le |grep hdb
+    0 S  1001 27178 27171  0  80   0 - 113666 -     ?        00:00:01 hdb.sapHN1_HDB0
+    0 S  1001 27196 27178  2  80   0 - 2349845 -    ?        00:04:41 hdbnameserver
+    0 S  1001 27298 27178  0  80   0 - 240858 -     ?        00:01:05 hdbcompileserve
+    0 S  1001 27301 27178  0  80   0 - 307069 -     ?        00:01:08 hdbpreprocessor
+    0 S  1001 27357 27178  3  80   0 - 2475778 -    ?        00:05:34 hdbindexserver
+    0 S  1001 27360 27178  1  80   0 - 1131862 -    ?        00:01:50 hdbxsengine
+    0 S  1001 27617 27178  0  80   0 - 711971 -     ?        00:01:10 hdbwebdispatche
+    1 S  1001 27860     1  0  80   0 - 177521 -     ?        00:00:00 hdbrsutil
+    1 S  1001 28295     1  0  80   0 - 177521 -     ?        00:00:00 hdbrsutil
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to use the locally installed HANA DB client to sign in to the **systemdb** database with the **SYSTEM** user credentials (when prompted for its password, type **Manager1**):
+
+    ```sh
+    hdbsql -d systemdb -u SYSTEM
+    ```
+
+1.  From the **hdbsql SYSTEMDB=\>** prompt, run the following to identify tenant databases:
+
+    ```sql
+    select * from M_DATABASES 
+    ```
+
+    > **Note**: Verify that the instance includes a single tenant database named **HN1**.
+
+1.  From the **hdbsql SYSTEMDB=\>** prompt, type **quit** to exit the HANA DB client.
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to sign in to the locally installed SAP HANA XS Advanced environment (when prompted, provide the password **Manager1** for the **XSA_ADMIN** user):
+
+    ```sh
+    cd /hana/shared/HN1/xs/bin
+    ./xs-admin-login
+    ```
+
+    > **Note**: The output should resemble the following:
+
+    ```sh
+    API_URL: https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:30030
+    USERNAME: XSA_ADMIN
+    Authenticating...
+    ORG: orgname
+    SPACE: SAP
+    API endpoint:   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:30030 (API version: 1)
+    User:           XSA_ADMIN
+    Org:            orgname
+    Space:          SAP
+    ```
+
+1.  From the **hn1adm@hdb1-0:/hana/shared/HN1/xs/bin\>** prompt, run the following to list the XSA apps:
+
+    ```sh
+    xs apps
+    ```
+
+    > **Note**: The output should resemble the following:
+
+    ```sh
+    Getting apps in org "orgname" / space "SAP" as XSA_ADMIN...
+    Found apps:
+
+    name                          requested state   instances   memory    disk          alerts   urls
+    --------------------------------------------------------------------------------------------------------------------------
+    auditlog-broker               STARTED           1/1         64.0 MB   <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51003
+    auditlog-db                   STOPPED           0/1         16.0 MB   <unlimited>   <none>
+    auditlog-server               STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51002
+    component-registry-db         STOPPED           0/1         16.0 MB   <unlimited>   <none>
+    deploy-service                STARTED           1/1         300 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51004
+    jobscheduler-backend          STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51020
+    jobscheduler-broker           STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51017
+    jobscheduler-dashboard        STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51021
+    jobscheduler-db               STOPPED           0/1         256 MB    <unlimited>   <none>
+    jobscheduler-rest             STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51015
+    jobscheduler-service          STARTED           1/1         512 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51016
+    messaging-service-broker      STARTED           1/1         64.0 MB   <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51009
+    messaging-service-hub         STARTED           1/1         512 MB    <unlimited>   tcps://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51007
+    messaging-service-node        STARTED           1/1         512 MB    <unlimited>   tcps://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51008
+    product-installer             STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51005
+    product-installer-ui          STARTED           1/1         512 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51023
+    sap-portal-persistency        STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51010
+    sap-portal-static-resources   STARTED           1/1         1.00 GB   <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51011
+    sapui5_fesv6                  STARTED           1/1         256 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51022
+    sapui5_sb                     STARTED           1/1         128 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51024
+    xsa-cockpit                   STARTED           1/1         512 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51025
+    ```
+
+### Task 4: Prepare for the highly-available deployment of SAP HANA
+
+> **Note**: In the next exercise, you will implement a highly-available SAP HANA deployment. You will leverage for that purpose the SAP media downloaded in this exercise. 
+
+1.  From the **hn1adm@hdb1-0:/hana/shared/HN1/xs/bin\>** prompt, type **exit** and press **Enter** to exit the XSA environment. 
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you**:
+
+    ```sh
+    su - hn1adm
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to stop the HANA instance:
+
+    ```sh
+    hn1adm@hdb1-0:/hana/shared/HN1/xs/bin> HDB stop
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to verify that the HANA instance is no longer running:
+
+    ```sh
+    ps -le |grep hdb
+    ```
+
+    > **Note**: The output should resemble the following:
+
+    ```sh
+    hn1adm@hdb1-0:/usr/sap/HN1/HDB00> ps -le |grep hdb
+    1 S  1001 13905     1  0  80   0 - 177500 -     ?        00:00:00 hdbrsutil
+    1 S  1001 14314     1  0  80   0 - 177501 -     ?        00:00:00 hdbrsutil
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to shut down operating system:
+
+    ```sh
+    exit
+    sudo shutdown now
+    ```
+
+    > **Note**: This will automatically terminate the SSH session to the **hdb1-0** Azure VM.
+
+1.  Within the SSH session to the Linux jumpbox Azure VM, run the following to shut down operating system:
+
+    ```sh
+    sudo shutdown now
+     ```
+
+    > **Note**: This will automatically terminate the SSH session to the Linux jumpbox Azure VM.
+
+1.  Within the SSH session to the Azure VM you used to perform the Terraform deployment, run the following to delete all VMs that were included in that deployment:
+
+    ```sh
+    RGNAME='hanav2-sn-RG'
+    az vm delete --ids $(az vm list --resource-group $RGNAME --query "[].id" -o tsv) --yes
+    ```
+
+1.  Within the SSH session to the Azure VM you used to perform the Terraform deployment, run the following to delete all VM disks that were included in that deployment:
+
+    ```sh
+    az disk delete --ids $(az disk list --resource-group $RGNAME --query "[].id" -o tsv) --yes --no-wait
+    ```
+
+1.  In the SSH session to the Azure VM you used for Terraform deployment, run the following to clean up the working directries and files (confirm when prompted whether to proceed):
+
+    ```sh
+    terraform_v2.sh clean
+    ```
+
+## Exercise 2: Implement highly-available HANA instances by using Terraform and Ansible
+
+Duration: 120 minutes
+
+In this exercise, you will implement a highly-available deployment of SAP HANA on Azure virtual machines (VMs). The deployment will be divided into two fully automated parts. The first one will use Terraform to deploy Azure resources that will host SAP deployment. The second one will use Ansible to deploy and configure all of the SAP components. 
+
+You will leverage a number of artifacts that you implemented in the first exercise of this lab, including:
+
+-   HANA software that you uploaded to an Azure Storage account
+
+-   SSH key pair
+
+-   The service principal created to facilitate authentication and authorization required by Terraform to provision Azure resources.
+
+### Task 1: Deploy highly-available Azure infrastructure by using Terraform
+
+1.  In the SSH session to the Azure VM you used for Terraform deployment, run the following to extend the $PATH environment variable to include the location of the utility scripts that are part of the cloned repo:
+
+    ```sh
+    source util/source_path.sh
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to export the environment variables designating the service principal you created in the previous exercise:
+
+    ```sh
+    source set-sp.sh
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to download into the current directory the Azure Resource Manager template and the corresponding parameters file you will use for provisioning of the single-node SAP HANA lab environment:
+
+    ```sh
+    curl https://github.com/polichtm/MCW-SAP-HANA-on-Azure/tree/master/Hands-on%20lab/labfiles/sap-hana/templates/template-ha1.json  --output ./deploy/template_samples/template-ha1.json
+    ```
+
+    > **Note**: The template has the following content:
+
+    ```json
+    {
+      "infrastructure": {
+        "region": "eastus",
+        "resource_group": {
+          "is_existing": "false",
+          "name": "hanav2-ha-RG"
+        },
+        "ppg": {
+          "is_existing": "false",
+          "name": "hanav2-ha-ppg"
+        },
+        "vnets": {
+          "management": {
+            "is_existing": "false",
+            "name": "hanav2-ha-vnet-mgmt",
+            "address_space": "10.100.0.0/16",
+            "subnet_mgmt": {
+              "is_existing": "false",
+              "name": "subnet-mgmt",
+              "prefix": "10.100.0.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-mgmt",
+                "allowed_ips": [
+                  "0.0.0.0/0"
+                ]
+              }
+            }
+          },
+          "sap": {
+            "is_existing": "false",
+            "name": "hanav2-ha-vnet-sap",
+            "address_space": "10.101.0.0/16",
+            "subnet_admin": {
+              "is_existing": "false",
+              "name": "subnet-admin",
+              "prefix": "10.101.1.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-admin"
+              }
+            },
+            "subnet_db": {
+              "is_existing": "false",
+              "name": "subnet-db",
+              "prefix": "10.101.2.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-db"
+              }
+            },
+            "subnet_app": {
+              "is_existing": "false",
+              "name": "subnet-app",
+              "prefix": "10.101.3.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-app"
+              }
+            },
+            "subnet_iscsi": {
+              "is_existing": "false",
+              "name": "subnet-iscsi",
+              "prefix": "10.101.4.0/24",
+              "nsg": {
+                "is_existing": "false",
+                "name": "nsg-iscsi"
+              }
+            }
+          }
+        },
+        "iscsi": {
+          "iscsi_count": 3,
+          "size":"Standard_D2s_v3",
+          "os": {
+            "publisher": "SUSE",
+            "offer": "sles-sap-12-sp5",
+            "sku": "gen1",
+            "version": "latest"
+          },
+          "authentication": {
+            "type": "key",
+            "username": "azureadm"
+          }
+        }
+      },
+      "jumpboxes": {
+        "windows": [
+          {
+            "name": "hanav2jmp-vm0",
+            "destroy_after_deploy": "false",
+            "size": "Standard_D2s_v3",
+            "disk_type": "StandardSSD_LRS",
+            "os": {
+              "publisher": "MicrosoftWindowsServer",
+              "offer": "WindowsServer",
+              "sku": "2019-Datacenter"
+            },
+            "authentication": {
+              "type": "password",
+              "username": "azureadm",
+              "password": "Sap@hana2019!"
+            },
+            "components": []
+          }
+        ],
+        "linux": []
+      },
+      "databases": [
+        {
+          "platform": "HANA",
+          "db_version": "2.00.043",
+          "os": {
+            "publisher": "suse",
+            "offer": "sles-sap-12-sp5",
+            "sku": "gen1"
+          },
+          "size": "Demo",
+          "filesystem": "xfs",
+          "high_availability": true,
+          "authentication": {
+            "type": "key",
+            "username": "azureadm"
+          },
+          "instance": {
+            "sid": "HN1",
+            "instance_number": "00"
+          },
+          "credentials": {
+            "db_systemdb_password": "Manager1",
+            "os_sidadm_password": "Help4you",
+            "os_sapadm_password": "Help4you",
+            "xsa_admin_password": "Manager1",
+            "cockpit_admin_password": "Manager1",
+            "ha_cluster_password": "ASecurePa55w0rd"
+          },
+          "dbnodes": [
+            {
+              "name": "hdb1",
+              "role": "worker"
+            }
+          ],
+          "components": {
+            "hana_database": [],
+            "hana_client_linux": [],
+            "xs": [
+               "xsac_ui5_sb",
+               "xsac_ui5_fesv6",
+               "xsac_portal_serv",
+               "xsac_services",
+               "xsac_mess_srv",
+               "xsac_alm_pi_ui",
+               "xsac_xsa_cockpit"
+            ]
+          },
+          "xsa": {
+            "routing": "ports"
+          },
+          "shine": {
+            "email": "shinedemo@microsoft.com"
+          },
+          "loadbalancer": {}
+        }
+      ],
+      "application": {
+        "sid": "HN1",
+        "enable_deployment": true,
+        "scs_instance_number": "01",
+        "ers_instance_number": "02",
+        "scs_high_availability": true,
+        "application_server_count": 1,
+        "webdispatcher_count": 1,
+        "vm_sizing": "Default",
+        "authentication": {
+          "type": "key",
+          "username": "azureadm"
+        },
+        "os": {
+          "os_type": "Linux",
+          "publisher": "suse",
+          "offer": "sles-sap-12-sp5",
+          "sku": "gen1"
+        }
+      },
+      "software": {
+        "storage_account_sapbits": {
+          "is_existing": true,
+          "account_tier": "Standard",
+          "account_replication_type": "LRS",
+          "account_kind": "Storage",
+          "blob_container_name": "bits",
+          "container_access_type": "private",
+          "arm_id": "VAR_STORAGE_ACCOUNT_ID"
+        },
+        "downloader": {
+          "credentials": {
+            "sap_user": "",
+            "sap_password": ""
+          },
+          "scenarios": [
+            {
+              "scenario_type": "DB",
+              "product_name": "HANA",
+              "product_version": "2.0",
+              "os_type": "LINUX_X64",
+              "os_version": "SLES12.3",
+              "components": [
+                "PLATFORM"
+              ]
+            },
+            {
+              "scenario_type": "RTI",
+              "product_name": "RTI",
+              "os_type": "LINUX_X64"
+            },
+            {
+              "scenario_type": "BASTION",
+              "os_type": "NT_X64"
+            }
+          ],
+          "debug": {
+            "enabled": false,
+            "cert": "charles.pem",
+            "proxies": {
+              "http": "http://127.0.0.1:8888",
+              "https": "https://127.0.0.1:8888"
+            }
+          }
+        }
+      },
+      "sshkey": {
+        "path_to_public_key": "~/.ssh/id_rsa.pub",
+        "path_to_private_key": "~/.ssh/id_rsa"
+      },
+      "options": {
+        "enable_secure_transfer": true,
+        "ansible_execution": false,
+        "enable_prometheus": false
+      }
+    }
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to set the credentials necessary to access SAP downloads site (replace the `[SID]` placeholder with your SAP ID and the `[SID_password]` placeholder with the corresponding password):
+
+    ```sh
+    set_sap_download_credentials.sh [SID] [SID_password] template-ha1.json
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to set the resource id of the existing storage account that hosts the SAP media files and add it to the Azure Resource Manager template you are using in this deployment:
+
+    ```sh
+    SN_RGNAME='hanav2-sn-RG'
+    STORAGE_ACCOUNT_ID=$(az storage account list --resource-group $SN_RGNAME --query "[?starts_with(name,'sapbits')].id" -o tsv)
+    STORAGE_ACCOUNT_ID_REGEX="$(echo $STORAGE_ACCOUNT_ID | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')"
+    sed -i "s/VAR_STORAGE_ACCOUNT_ID/$STORAGE_ACCOUNT_ID_REGEX/" ./deploy/template_samples/template-ha1.json
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to initialize the Terraform environment:
+
+    ```sh
+    terraform_v2.sh init
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to create an execution plan for the Terraform deployment:
+
+    ```sh
+    terraform_v2.sh plan template-ha1
+    ```
+
+1.  In the SSH session to the Azure VM, run the following to initiate the Terraform deployment:
+
+    ```sh
+    terraform_v2.sh apply template-ha1
+    ```
+
+    > **Note**: Wait for the deployment to complete. This should take about 10 minutes.
+
+    > **Note**: Once the deployment completes, the output will include the public IP address of the Linux jumpbox Azure VM included in the Terraform deployment and its administrator's account name, which you will use in the next task. 
 
 
-### Task 3: Test a failover
+### Task 2: Deploy highly-available Azure HANA instances by using Ansible
 
-1.  Within the Remote Desktop session to **hn1-win-bastion** Azure VM, in the Internet Explorer window displaying the **SUSE Hawk** page, from the **msl\_SAPHana\_HN1\_HDB01** pane, identify the system currently serving the master role. Then close the **msl\_SAPHana\_HN1\_HDB01** pane.
+1.  Within the SSH session to the Azure VM you used for Terraform deployment, run the following to connect via SSH to the Linux jumpbox VM, which public IP address you identified in the previous task (replace the `[IP_address]` placeholder with the value of the public IP address and confirm when prompted whether to proceed):
 
-    ![The same page displays with the SAPHana resource details.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image21.png "SAPHana Resource details page")
+    ```sh
+    ssh azureadm@[IP_address]
+    ```
 
-2.  Switch to the lab computer and, in the Azure portal, and identify the Bash session which hosts the SSH session to the Azure VM you identified in the previous step. 
+1.  Within the SSH session to the Linux jumpbox VM, run the following to set the environment variables necessary for the Ansible-based scripts to provision the lab environment:
 
-    > **Note**: You might need to restart the Bash session and reestablish the SSH session. If so, follow the instructions in the previous task.
+    ```sh
+    export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+    export ANSIBLE_HOST_KEY_CHECKING=False
+    source ~/export-clustering-sp-details.sh
+    ```
 
-3.  Within the SSH session, initiate a failover by running the following:
+1.  Within the SSH session to the Linux jumpbox VM, run the following to initiate the Ansible-based provisioning of the lab environment: 
+
+    ```sh
+    ansible-playbook -i hosts.yml ~/sap-hana/deploy/ansible/sap_playbook.yml
+    ```
+
+    > **Note**: Wait for the deployment to complete. This should take about 60 minutes.
+
+    > **Note**: Once the deployment completes, the output will include the public IP address of the Windows jumpbox VM included in the Terraform deployment, its local user name with the Administrator privileges, and its password, which you will use in the next task. 
+
+
+### Task 3: Review the deployment of highly-available HANA instances
+
+> **Note**: In this deployment, the **hdb1-0** Azure VM also has two private IP addresses **10.101.1.10** and **10.101.2.10**. The first one is meant to be used for management. You will use this IP address in this exercise. 
+
+1.  From within the SSH session to the Linux jumpbox Azure VM, connect to the **hdb1-0** Azure VM running HANA by using its private IP address you identified earlier in this task:
+
+    ```sh
+    ssh azureadm@10.101.1.10
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you**:
+
+    ```sh
+    su - hn1adm
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to sign in to the locally installed SAP HANA XS Advanced environment (when prompted, provide the password **Manager1** for the **XSA_ADMIN** user):
+
+    ```sh
+    cd /hana/shared/HN1/xs/bin
+    ./xs-admin-login
+    ```
+
+1.  From the **hn1adm@hdb1-0:/hana/shared/HN1/xs/bin\>** prompt, run the following to identify the URL of the XSA Cockpit:
+
+    ```sh
+    xs apps | grep xsa-cockpit
+    ```
+
+    > **Note**: The output should resemble the following:
+
+    ```sh
+    xsa-cockpit                   STARTED           1/1         512 MB    <unlimited>   https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51025
+    ```
+
+    > **Note**: Take the note of the URL designating the access point of xsa-cockpit. You will need it later in this exercise.
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to identify the **default_domain** and **api_url** XSA parameters:
+
+    ```sh
+    cat /hana/shared/HN1/global/hdb/custom/config/xscontroller.ini
+    ```
+
+    > **Note**: The output should include the following:
+
+    ```sh
+    [communication]
+    default_domain = hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net
+    api_url = https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:30030
+    ```
+
+1.  Switch to the lab computer and initiate a Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0** which public IP address you identified in the previous task. When prompted, sign in with the credentials, also provided at the end of the previous task.
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, navigate to the **Local Server** view in the **Server Manager** window and disable **IE Enhanced Security Configuration**.
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, open the **hosts** file located in **C:\\Windows\\System32\\drivers\\etc** in Notepad.
+
+1.  Add the following entries to the host file, save your changes, and close the file:
+
+    ```
+    10.101.2.4	hdbha
+    10.101.2.10	hdb1-0
+    10.101.2.11	hdb1-1
+    ```
+
+    > **Note**: `10.101.2.4` is the IP address assigned to the front end of the Azure Internal Load Balancer that distributes network traffic to the HANA cluster hosted on two Azure VMs **hdb1-0** and **hdb1-1**.
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start **Internet Explorer**, and browse to [the Azure portal](https://portal.azure.com). When prompted, sign in with the credentials you are using in this lab.
+
+1.  In the Azure portal, search for and select **Proximity placement groups** and, on the **Proximity placement groups** blade, select the **hanav2-ha-ppg** entry.
+
+1.  On the **hanav2-ha-ppg** blade, note that the proximity placement group contains the **HN1_hdb-avset** availability set along with both Azure VMs **hdb1-0** and **hdb1-1**, operating as the HANA cluster nodes.
+
+    > **Note**: The proximity placement group ensures that the latency of replication between the cluster nodes is minimized.
+
+1.  In the Azure portal, search for and select **Network security groups** and, on the **Network security groups** blade, select the entry representing the **nsg-db** network security group in the **hanav2-ha-RG** resource group.
+
+    > **Note**: Make sure that you select the **nsg-db** network security group in the **hanav2-ha-RG** resource group (rather than the one in the **hanav2-sn-RG** resource group).
+
+    > **Note**: The **nsg-db** network security group restrict connectivity to the Azure VMs hosting the HANA databases. In order to proceed with further testing within the lab environment, you need to allow incoming traffic from the jumpbox VM running Windows Server 2019 and from load balancer probes (which are currently denied) to the virtual network hosting the load balancer Azure VMs running HANA.
+
+1.  On the **nsg-db** blade, select **Inbound security rules** and then select **+ Add**. 
+
+1.  On the **Add inbound security rule** blade, specify the following settings (leave others with their default values) and select **Add**:
+
+    | Setting | Value |
+    | --- | --- |
+    | Source | **Any** |
+    | Source port ranges | **\*** |
+    | Destination | **IP Addresses** |
+    | Destination IP addresses/CIDR ranges | **10.101.0.0/16** |
+    | Destination port ranges | * |
+    | Protocol | **Any** |
+    | Action | **Allow** |
+    | Priority | **100** |
+    | Name | **allow-lab-traffic** |
+
+1.  In the Azure portal, search for and select **Load balancers** and, on the **Load balancers** blade, select the **HN1_hdb-alb** entry. 
+
+    > **Note**: The **HN1_hdb-alb** load balancer provides load balancing for connections targeting Azure VMs hosting the HANA databases. In order to proceed with testing in the lab environment, you need to modify the backend pool of the load balancer.
+
+1.  On the **HN1_hdb-alb \| Load balancing rules** blade, select **Backend pools**. 
+
+1.  On the **HN1_hdb-alb \| Backend pools** blade, select the **HN1_hdbAlb-bePool** entry.
+
+1.  On the **HN1_hdbAlb-bePool** blade, in the **Virtual machines** section, select the **hdb1-0** and the **hdb1-1** checkboxes and then select **Remove**.
+
+1.  On the **HN1_hdbAlb-bePool** blade, in the **Virtual machines** section, select **Add**.
+
+1.  On the **Add virtual machines to backend pool** blade, select the entry referencing **hdb1-0-admin-nic-ip (10.1.1.10)** and **hdb1-1-admin-nic-ip (10.1.1.11)** and then select **Add**. 
+
+    > **Note**: Make sure to select the IP Configuration entries that reference IP addresses on the **10.1.1.0/24** subnet. This is necessary to allow for the traffic originating from the Windows Server jumpbox Azure VM to reach the backend pool VMs.
+
+1.  Back on the **HN1_hdbAlb-bePool** blade, select **Save**.
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start **Internet Explorer**, and browse to **https://hdb1-0:7630**. 
+
+1.  Disregard the **This site is not secure** error message, select **More information**, and then select **Go on to the webpage (not recommended)**. 
+
+    > **Note**: Ignore any messages indicating problems with security certificate of the target website. This is expected in the lab environment. 
+
+1.  On the **SUSE Hawk Sign in** page, sign in as **hacluster** with the password **ASecurePa55w0rd**.
+
+1.  Once you signed in, review the **Resources** tab on the **Status** page.
+
+    ![On the Status page, the Resources tab shows several resources in varying states of readiness.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_hawk_initial_status.png "Status page, Resources tab")
+
+1.  Next, switch to the **Nodes** tab on the **Status** page.
+
+    ![On the Status page, the Nodes tab is selected, and displays two nodes..](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_hawk_initial_nodes.png "Status page, Nodes tab")
+
+1.  Switch back to the **Resources** tab and use the magnifying glass icon to examine the state of the HANA resources starting with the **SAPHANATopology**.
+
+    ![A page displays with the SAPHANATopology resource details.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_hawk_initial_sap-hana-topology.png "SAPHANATopology resource details page")
+
+1.  Close the **SAPHANATopology** pane and use the magnifying glass icon to examine the state of the **SAPHana** resource.
+
+    ![A page displays with the SAPHana resource details.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_hawk_initial_sap-hana.png "SAPHana resource details page")
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start another instance of **Internet Explorer**, and browse to **https://hdb1-1:7630**. 
+
+    > **Note**: This connection targets the Azure VM hosting the passive HANA instance.
+
+1.  Disregard the **This site is not secure** error message, select **More information**, and then select **Go on to the webpage (not recommended)**. 
+
+1.  On the **SUSE Hawk Sign in** page, sign in as **hacluster** with the password **ASecurePa55w0rd**.
+
+1.  Once you signed in, verify that you can view the status of the cluster in the same manner as when connected to **https://hdb1-0:7630**.
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start **Internet Explorer**, and browse to the XSA Cockpit URL you identified earlier in this task.
+
+    > **Note**: The URL should resemble **https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51025** (the domain name will differ).
+
+1.  Disregard the **This site is not secure** error message, select **More information**, and then select **Go on to the webpage (not recommended)**. 
+
+    > **Note**: Ignore any messages indicating problems with security certificate of the target website. This is expected in the lab environment. 
+
+1.  On the **SAP HANA XS Advanced** page, sign in as **XSA_ADMIN** with the password **Manager1**.
+
+1.  Once you signed in, on the **XSA Host: Home - Organizations** page, select **User management**:
+
+    ![The SAP HANA XS Advanced Cockpit displays the XSA Host: Home - Organiations page with the User Management menu option selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_xsa_home_page.png "XSA Host: Home - Organizations page")
+
+1.  On the **XSA Host: Home - User Management** page, select **New User**:
+
+    ![The SAP HANA XS Advanced Cockpit displays the XSA Host: Home - User Management page with the New User button selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_xsa_new_user_button.png "XSA Host: Home - User Management page")
+
+1.  In the **New User** pane, specify the following settings and select **Create**:
+
+    | Setting | Value |
+    | --- | --- |
+    | User Name | **labuser1** |
+    | First Name | **lab** |
+    | Last Name | **user1** |
+    | E-Mail | **Labuser1@contoso.com** | 
+    | Password | **Lab@pass123** | 
+
+    ![The SAP HANA XS Advanced Cockpit displays the New User pane.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_xsa_new_user_settings.png "New XSA User pane")
+
+    ![The SAP HANA XS Advanced Cockpit displays the the XSA Host: Home - User Management page with the new user created.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task3_xsa_new_user_created.png "XSA Host: Home - User Management page")
+
+
+### Task 4: Install SAP HANA Client on the Windows Server jumpbox Azure VM
+
+1.  Within the Remote Desktop session to Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start **Internet Explorer**, and browse to [SAP HANA Client 2.0 download page](https://tools.hana.ondemand.com/#hanatools)
+
+1.  From the [SAP HANA Client 2.0 download page](https://tools.hana.ondemand.com/#hanatools), download the latest version of the HANA client for Windows x64 to the **Downloads** folder, extract its content, and double-click the **hdbsetup.exe** file to start the installation.
+
+1.  On the **Define Client Properties** page of the **SAP HANA Lifecycle Management** wizard, accept the default settings and select **Next**:
+
+    ![The Define Client Properties page displays the default settings.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task4_hana_2.0_install_settings.png "Define HANA 2.0 Client Properties install settings")
+
+1.  On the **Review & Confirm** page of the **SAP HANA Lifecycle Management** wizard, accept the default settings and select **Install**:
+
+    ![The Define Client Properties page displays the default settings.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task4_hana_2.0_install_confirm.png "Review & Confirm HANA 2.0 client install page")
+
+1.  Wait for the installation to complete and select **Finish**.
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start **Command Prompt**. 
+
+1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, in the **Command Prompt** window, run the following to connect the newly installed SAP HANA Client 2.0 to the active HANA instance via the load balancer:
+
+    ```cmd
+    cd C:\Program Files\sap\hdbclient
+    hdbsql -n hdbha:30013 -d systemdb -u SYSTEM -p Manager1    
+    ```
+
+    > **Note**: Make sure not to include the `-e` switch since this will result in an untrusted certificate-related error **-10709: Connection failed (RTE:[300015] SSL certificate validation failed: The certificate chain was issued by an authority that is not trusted.**
+
+    > **Note**: You should see the output similar to the following:
+
+    ```
+    Welcome to the SAP HANA Database interactive terminal.
+
+    Type:  \h for help with commands
+           \q to quit
+
+    hdbsql SYSTEMDB=>
+    ```
+
+1.  At the `hdbsql SYSTEMDB=>` prompt, type `\s` and press the **Enter** key to display the local SYSTEMDB information 
+
+    > **Note**: You should see the output similar to the following:
+
+    ```
+    hdbsql SYSTEMDB=> \s
+    host          : hdbha:30013
+    sid           : HN1
+    dbname        : SYSTEMDB
+    user          : SYSTEM
+    kernel version: 2.00.050.00.1592305219
+    SQLDBC version:        libSQLDBCHDB 2.05.109.1598303414
+    autocommit    : ON
+    locale        : English_United States.1252
+    input encoding: UTF8
+    sql port      : hdb1-0:30013
+    ```
+
+    > **Note**: Review the output, including the **sql port** entry, which allows you to identify the target HANA instance. You will use this method to verify connectivity to HANA in the subsequent tasks of this exercise.
+
+
+### Task 5: Test failover of the clustered resources
+
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the **SUSE Hawk** page, from the **msl\_SAPHana\_HN1\_HDB01** pane, verify that **hdb1-0** is currently serving the master role. Then close the **msl\_SAPHana\_HN1\_HDB01** pane.
+
+    ![The same page displays with the SAPHana resource details.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task5_hawk_initial_status.png "SAPHana Resource details page")
+
+1.  Switch to the SSH session to **hb1-0** and run the following to stop the Pacemaker Cluster Resource Manager monitor on the first cluster node:
 
     ```sh
     sudo service pacemaker stop
     ```
 
-4.  Switch back to the Remote Desktop session to **hn1-win-bastion** Azure VM and, in the Internet Explorer window displaying the **SUSE Hawk** page, observe how the status of the resource changes first to a question mark and then to a blue dot.
+1.  Switch back to the Remote Desktop session to the **hanav2jmp-vm0** Azure VM and, in the Internet Explorer window displaying the **SUSE Hawk** page connected to **https://hdb1-1:7630**, observe how the status of the resource changes first to a question mark and then to a blue dot.
 
-    ![On the Status page, the Resources tab displays, with a resource selected whose status has a question mark.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image22.png "Resources tab")
+    ![On the Status page, the Resources tab displays, with a resource selected whose status has a question mark.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task5_hawk_post_failover_qustion_mark.png "Resources tab")
 
-5.  Start **Internet Explorer**, and browse to **https://hn1-hdb1:7630**. On the **SUSE Hawk Sign in** page, sign in as **hacluster** with the password **Lab\@pa55hv1.0**.
+    ![On the Status page, the Resources tab displays, with a resource selected whose status has a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task5_hawk_post_failover_blue_dot.png "Resources tab")
 
-6.  In the Internet Explorer window displaying the **SUSE Hawk** resources status page, identify the system currently serving the master role hosting the **msl\_SAPHana\_HN1\_HDB01** resource:
+    > **Note**: You might need to wait a few minutes before the operational state stabilizes.
 
-    ![The resource selected now has a blue dot under Status.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image23.png "Resources tab")
+1.  Switch to the **Command Prompt** window and, at the `hdbsql SYSTEMDB=>` prompt, type `\s` and press the **Enter** key to display the local SYSTEMDB information 
 
-7.  Switch to **SAP HANA Administration Console**, and refresh the **Overview** tab in the **Configuration and Monitoring** view. Note that SAP HANA is running at this point on the **hn1-hdb1** node, and it is operational:
+    > **Note**: You should see the output similar to the following:
 
-    ![In the Configuration and Monitoring view, the Overview tab displays information for the hn1-hdb1 node.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image24.png "SAP HANA Administration Console Overview tab")
+    ```
+    hdbsql SYSTEMDB=> \s
+    host          : hdbha:30013
+    sid           : HN1
+    dbname        : SYSTEMDB
+    user          : SYSTEM
+    kernel version: 2.00.050.00.1592305219
+    SQLDBC version:        libSQLDBCHDB 2.05.109.1598303414
+    autocommit    : ON
+    locale        : English_United States.1252
+    input encoding: UTF8
+    sql port      : hdb1-1:30013
+    ```
 
-    > **Note**: You might need to wait a few minutes before the operational state is identified.
+    > **Note**: Review the output, including the **sql port** entry, which allows you to identify the target HANA instance. Verify that it includes the reference to **hdb1-1**.
 
-8.  Switch to the lab computer, in the Azure portal and, in the SSH session in Cloud Shell, start the pacemaker service by running the following:
+1.  Switch to the SSH session to the **hdb1-1** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you**:
+
+    ```sh
+    su - hn1adm
+    ```
+
+1.  Within the SSH session to the **hdb1-1** Azure VM, run the following to open the **xscontroller.ini** file for editing:
+
+    ```sh
+    vi /hana/shared/HN1/global/hdb/custom/config/xscontroller.ini
+    ```
+
+    > **Note**: You can use any Linux editor based on your preferences.
+
+1.  Within the editor interface, update the value of the **api_url** parameter to reference the **hdb1-1** cluster node and close the file, saving your changes. 
+
+    > **Note**: The entry you edit should reseble the following (the domain name will be different):
+
+    ```sh
+    api_url = https://hdb1-1.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:30030
+    ```
+
+1.  Within the SSH session to the **hdb1-1** Azure VM, run the following to reset the certificate for the controller API. 
+
+    ```sh
+    cd /hana/shared/HN1/xs/bin    
+    XSA reset-certificate
+    ```
+
+    > **Note**: For details regarding this procedure, refer to [SAP Note #2243019](https://launchpad.support.sap.com/#/notes/2243019)
+
+1.  Within the SSH session to the **hdb1-1** Azure VM, run the following to sign in to the locally installed SAP HANA XS Advanced environment (when prompted, provide the password **Manager1** for the **XSA_ADMIN** user):
+
+    ```sh
+    ./xs-admin-login
+    ```
+
+1.  From the **hn1adm@hdb1-0:/hana/shared/HN1/xs/bin\>** prompt, run the following to identify the URL of XSA Cockpit:
+
+    ```sh
+    xs apps | grep xsa-cockpit
+    ```
+
+    > **Note**: The output should resemble the following (the domain name will be different):
+
+    ```sh
+    xsa-cockpit                   STARTED           1/1         512 MB    <unlimited>   https://hdb1-1.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:51025
+    ```
+
+    > **Note**: Take the note of the URL designating the access point of xsa-cockpit. You will need it next.
+
+1.  Switch back to the Remote Desktop session to the **hanav2jmp-vm0** Azure VM and, start Internet Explorer, and navigate to the XSA Cockpit URL you identified in the previous step. 
+
+1.  Disregard the **This site is not secure** error message, select **More information**, and then select **Go on to the webpage (not recommended)**. 
+
+1.  On the **SAP HANA XS Advanced** page, sign in as **XSA_ADMIN** with the password **Manager1**.
+
+1.  Once you signed in, on the **XSA Host: Home - Organizations** page, select **User management** and verify that the list of users on **XSA Host: Home - User Management** page includes the user account you created in the previous task.
+
+    ![The SAP HANA XS Advanced Cockpit displays the the XSA Host: Home - User Management page with the lab user1.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task5_xsa_new_user_displayed.png "XSA Host: Home - User Management page")
+
+1.  Switch to the SSH session to the **hb1-0** Azure VM and run the following to start the Pacemaker Cluster Resource Manager monitor on the first cluster node:
 
     ```sh
     sudo service pacemaker start
     ```
 
-9.  Terminate the SSH session by running the following:
+1.  Switch back to the Remote Desktop session to **hanav2jmp-vm0** Azure VM, review the **SUSE Hawk Status** page at **https://hdb1-1:7630**, and observe how the status of some of the clustered resources is changing to include references to both hdb1-0 and hdb1-1:
+
+    > **Note**: The **msl_SAPHana_HN1_HDB00** resource does not automatically add **hdb1-0** as the passive node, as indicated by the error message. This is expected, since the **AUTOMATED_REGISTER** parameter of the resource is set to **false**. The **AUTOMATED_REGISTER** parameter defines, whether a former primary instance should be registered automatically by the resource agent during cluster or resource start.
+
+    ![On the Resources tab, the SAPHanaTopology and cln_azure-events resources now include hdb1-0.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task5_hawk_post_pacemaker_restart.png "Resources tab")
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you**:
+
+    ```sh
+    su - hn1adm
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to ensure that the HANA instance is stopped:
+
+    ```sh
+    sapcontrol -nr 00 -function StopWait 600 10
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to re-configure the local HANA instance as secondary:
+
+    ```sh
+    hdbnsutil -sr_register --remoteHost=hdb1-1 --remoteInstance=00 --replicationMode=sync --name=SITE1 
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch back to root context and clean up the failed state:
 
     ```sh
     exit
+    sudo crm resource cleanup msl_SAPHana_HN1_HDB00 hdb1-0
     ```
 
-10. Switch back to the Remote Desktop session to **hn1-win-bastion** Azure VM, switch to the **SUSE Hawk Status** page at **https://hn1-hdb1:7630**, and observe how the **SAPHana** clustered resource status is changing to operational on both hn1-hdb0 and hn1-hdb1 with hn1-hdb1 as the primary (you might need to wait a few minutes for the interface to refresh):
+1.  Switch back to the Remote Desktop session to **hanav2jmp-vm0** Azure VM, review the **SUSE Hawk Status** page at **https://hdb1-1:7630**, and observe how the **SAPHana** clustered resource status is changing to operational on both hdb1-0 and hdb1-1 with the latter as the primary (you might need to wait a few minutes for the interface to refresh):
 
-    ![On the Resources tab, the SAPHana line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image25.png "Resources tab")
+    ![On the Resources tab, the SAPHana line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task5_hawk_post_failover_and_pacemaker_restart.png "Resources tab")
 
 
-### Task 4: Test a migration
+### Task 6: Test fencing of the clustered resources
 
-1.  Within the Remote Desktop session to **hn1-win-bastion** Azure VM, ensure that you are viewing the **SUSE Hawk Status** page at **https://hn1-hdb1:7630**.
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the Azure portal, search for and select the **Virtual machines** entry, on the **Virtual machines** blade, select the entry representing the **hdb1-1** Azure VM hosting the currently active HANA instance, in the toolbar, select **Stop** and, when prompted for confirmation, select **Yes**. 
 
-    ![On the Resources tab, the SAPHana line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image25.png "Resources tab")
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, switch to the Internet Explorer window displaying the **SUSE Hawk Status** page at **https://hdb1-0:7630**, wait until the status of the **msl_SAPHana_HN1_HDB01** resource in the Internet Explorer window displaying connection to **https://hdb1-0:7630** changes from a question mark to a blue dot, and verify that its location changed to **hdb1-1**.
 
-2.  From the **SUSE Hawk Status** page at **https://hn1-hdb1:7630**, select the **Migrate** option of the **SAPHana** clustered resource.
+    ![On the Resources tab, the status of the resource has a qustion mark, and its location is hdb1-1.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task6_hawk_post_primary_node_stopped_question-mark.png "Resources tab")
 
-    ![On the Resources tab, the SAPHana line now displays a menu containing the Maintenance, Migrate, Cleanup, Recent events, and Edit options.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image26.png "Resources tab")
+    ![On the Resources tab, the status of the resource has a blue dot, and its location is hdb1-1.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task6_hawk_post_primary_node_stopped_blue-dot.png "Resources tab")
 
-3.  From the **SUSE Hawk Status** page at **https://hn1-hdb1:7630**, select the **hn1-hdb0** node as the migration target.
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, switch to the **Command Prompt** window and, at the `hdbsql SYSTEMDB=>` prompt, type `\s` and press the **Enter** key to display the local SYSTEMDB information 
 
-    ![In the Migrate msl_SAPHana_HN1_HDB01 dialog box, the entry hn1-hdb0 is selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image27.png "Resources tab")
+    > **Note**: You should see the output similar to the following:
 
-4.  On the **SUSE Hawk Status** page, note that the status of **SAPHana** clustered resource is listed with a question mark and a couple of chain link icons representing constraints. 
+    ```
+    hdbsql SYSTEMDB=> \s
+    host          : hdbha:30013
+    sid           : HN1
+    dbname        : SYSTEMDB
+    user          : SYSTEM
+    kernel version: 2.00.050.00.1592305219
+    SQLDBC version:        libSQLDBCHDB 2.05.109.1598303414
+    autocommit    : ON
+    locale        : English_United States.1252
+    input encoding: UTF8
+    sql port      : hdb1-0:30013
+    ```
 
-    ![On the Resources tab, the SAPHana line now displays a question mark and two constraints symbols.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image28.png "Resources tab")
+    > **Note**: Review the output, including the **sql port** entry, which allows you to identify the target HANA instance. Verify that it includes the reference to **hdb1-0**.
 
-5.  To remediate this, use the vertical menu on the left-hand side of the **SUSE Hawk Status** to switch to the **Edit Configuration** page and display its **Constraints** tab. 
+1.  Switch to the lab computer, in the Azure portal, on the **Virtual machines** blade, select the entry representing the **hdb1-1** Azure VM, in the toolbar, select **Start** and, when prompted for confirmation, select **Yes**. 
 
-    ![The Constraints tab is selected on the Edit Configuration page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image29.png "Edit Configuration page")
+    > **Note**: The **msl_SAPHana_HN1_HDB00** resource does not automatically add **hdb1-1** as the passive node. This is expected, since the **AUTOMATED_REGISTER** parameter of the resource is set to **false**. 
+
+1.  Wait until the **hdb1-1** Azure VM is running, switch to the duplicate SSH session and run the following to connect to that Azure VM via its private IP address:
+
+    ```sh
+    ssh azureadm@10.101.1.11
+    ```
+
+1.  Within the SSH session to the **hdb1-1** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you**:
+
+    ```sh
+    su - hn1adm
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to ensure that the HANA instance is stopped:
+
+    ```sh
+    sapcontrol -nr 00 -function StopWait 600 10
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to re-configure the local HANA instance as secondary
+
+    ```sh
+    hdbnsutil -sr_register --remoteHost=hdb1-0 --remoteInstance=00 --replicationMode=sync --name=SITE2
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch back to root context and clean up the failed state:
+
+    ```sh
+    exit
+    sudo crm resource cleanup msl_SAPHana_HN1_HDB00 hdb1-1
+    ```
+
+1.  Switch back to the Remote Desktop session to **hanav2jmp-vm0** Azure VM and, on the **SUSE Hawk Status** page at **https://hdb1-0:7630** note that the **SAPHana** clustered resource is operational on both hdb1-0 and hdb1-1 with hdb1-1 as the primary (you might need to wait a few minutes for the interface to refresh and transition from a question mark to a blue dot displayed next to the msl_SAPHana_HN1_HDB00 resource):
+
+    ![On the Resources tab, the msl_SAPHana_HN1_HDB00 line now displays a question mark.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task6_hawk_post_primary_node_started_question-mark.png "Resources tab")
+
+    ![On the Resources tab, the msl_SAPHana_HN1_HDB00 line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task6_hawk_post_primary_node_started_blue-dot.png "Resources tab")
+
+
+### Task 7: Test migration of the clustered resources
+
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, switch to the Internet Explorer window displaying the **SUSE Hawk Status** page at **https://hdb1-1:7630**.
+
+    ![On the Resources tab, the SAPHana line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_initial_status.png "Resources tab")
+
+1.  From the **SUSE Hawk Status** page at **https://hdb1-1:7630**, select the **Migrate** option of the **SAPHana** clustered resource.
+
+    ![On the Resources tab, the SAPHana line now displays a menu containing the Maintenance, Migrate, Cleanup, Recent events, and Edit options.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_migrate_to_hdb1-1_menu.png "Resources tab")
+
+1.  From the **SUSE Hawk Status** page at **https://hdb1-1:7630**, select the **hdb1-1** node as the migration target.
+
+    ![In the Migrate msl_SAPHana_HN1_HDB01 dialog box, the entry hdb1-1 is selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_migrate_to_hdb1-1.png "Resources tab")
+
+1.  On the **SUSE Hawk Status** page, note that the status of **SAPHana** clustered resource is listed with a question mark, which subsequently turns into a blue dot, and chain link icons representing constraints. 
+
+    ![On the Resources tab, the SAPHana line now displays a blue dot and two constraints symbols.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_migrated_with_question_mark_and_constraints.png "Resources tab")
+
+    ![On the Resources tab, the SAPHana line now displays a blue dot and two constraints symbols.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_migrated_with_blue_dot_and_constraints.png "Resources tab")
+
+1.  Switch to the **Command Prompt** window and, at the `hdbsql SYSTEMDB=>` prompt, type `\s` and press the **Enter** key to display the local SYSTEMDB information 
+
+    > **Note**: You should see the output similar to the following:
+
+    ```
+    hdbsql SYSTEMDB=> \s
+    host          : hdbha:30013
+    sid           : HN1
+    dbname        : SYSTEMDB
+    user          : SYSTEM
+    kernel version: 2.00.050.00.1592305219
+    SQLDBC version:        libSQLDBCHDB 2.05.109.1598303414
+    autocommit    : ON
+    locale        : English_United States.1252
+    input encoding: UTF8
+    sql port      : hdb1-1:30013
+    ```
+
+    > **Note**: Review the output, including the **sql port** entry, which allows you to identify the target HANA instance. Verify that it includes the reference to **hdb1-1**.
+
+    > **Note**: At this point, the **msl_SAPHana_HN1_HDB00** resource uses only a single-node (**hdb1-1**). To allow failback to **hdb1-0**, you need to first remove the constraints that were generated automatically when you initiated the migration task. 
+
+1.  To remove constraints, use the vertical menu on the left-hand side of the **SUSE Hawk Status** to switch to the **Edit Configuration** page and display its **Constraints** tab. 
+
+    ![The Constraints tab is selected on the Edit Configuration page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_post_migration_constraints.png "Edit Configuration page")
 
     > **Note**: Ban and prefer location constraints are generated automatically during migration operation in order to prevent unintended failback to the original cluster node. However, such constraints should be removed once the original node is available to host cluster resources. 
 
     > **Note**: Make sure not to accidentally remove other constraints.  
     
-6.  From the **Constraints** page, delete the **cli-prefer-msl\_SAPHana\_HN1\_HDB01** Location constraint.
+1.  From the **Constraints** page, delete the **cli-ban-msl\_SAPHana\_HN1\_HDB00-on-hdb1-0** Location constraint.
 
-    ![Under Operations, the Delete constraint icon is selected for cli-prefer-msl\_SAPHana\_HN1\_HDB01.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image30.png "Delete constraint")
-    
-7.  From the **Constraints** page, delete the **cli-ban-msl\_SAPHana\_HN1\_HDB01-on-hn1-hdb1** Location constraint.
+    ![Under Operations, the Delete constraint icon is selected for cli-ban-msl\_SAPHana\_HN1\_HDB00-on-hdb1-0.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_migrated_delete_ban_constraint.png "Delete constraint")
 
-    ![Under Operations, the Delete constraint icon is selected for cli-ban-msl\_SAPHana\_HN1\_HDB01-on-hn1-hdb1.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image31.png "Delete constraint")
-    
-8.  Switch to the **SUSE Hawk Status** page, and verify the **SAPHana** clustered resource is operational on both nodes with hn1-hdb0 as the master (you might need to wait a few minutes for the interface to refresh).
+1.  From the **Constraints** page, delete the **cli-prefer-msl\_SAPHana\_HN1\_HDB00** Location constraint.
 
-    ![The Resources tab is selected on the Status page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image32.png "Status page")
+    ![Under Operations, the Delete constraint icon is selected for cli-prefer-msl\_SAPHana\_HN1\_HDB00-on-hdb1-0.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_migrated_delete_prefer_constraint.png "Delete constraint")
 
-9.  Switch to **SAP HANA Administration Console**, and refresh the Overview tab in the **Configuration and Monitoring** view. Note that SAP HANA is running at this point on the **hn1-hdb0** node and is operational.
+1.  Switch back to the **SUSE Hawk Status** page at **https://hdb1-0:7630**, and note that the icons representing constraints are no longer present, however, the console displays an error message indicating a failure of the start operation for resource rsc_SAPHana_HN1_HDB00 on node hdb1-0. 
 
-    ![In the Configuration and Monitoring view, on the Overview tab, details display for the hn1-hdb0 node.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image33.png "SAP HANA Administration Console, Overview tab")
+    > **Note**: The **msl_SAPHana_HN1_HDB00** resource does not automatically add **hdb1-0** as the passive node, as indicated by the error message. This is expected, since the **AUTOMATED_REGISTER** parameter of the resource is set to **false**. 
 
+    ![On the Resources tab, the SAPHanaTopology and cln_azure-events resources now include hdb1-0.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_post_migration_failed_start_error_message.png "Resources tab")
 
-### Task 5: Test fencing
-
-1.  Switch to the lab computer, in the Azure portal, navigate to the **Virtual machines** blade, and stop the Azure virtual machine to which you migrated HANA resources in the previous task. 
-
-2.  Switch back to the Remote Desktop session to **hn1-win-bastion** Azure VM, wait until the status of the **msl_SAPHana_HN1_HDB01** resource in the Internet Explorer window displaying connection to **https://hn1-hdb1:7630** changes from a question mark to a blue dot, and verify that its location changed to **hn1-hdb1**.
-
-    ![On the Resources tab, the status of the resource has a blue dot, and its location is hn1-hdb1.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image34.png "Status page")
-
-3.  Switch to **SAP HANA Administration Console**, and refresh the Overview tab in the **Configuration and Monitoring** view. Note that SAP HANA is running at this point on the **hn1-hdb1** node.
-
-    ![In the Configuration and Monitoring view, on the Overview tab, details display for SAP HANA.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image35.png "SAP HANA Administration Console, Overview tab")
-
-    > **Note**: You might need to wait a few minutes before the operational state is identified.
-
-4.  Switch to the lab computer, in the Azure portal, navigate to the **Virtual machines** blade, start the virtual machine you stopped earlier in this task and wait until it is running again.
-
-5.  Switch back to the Remote Desktop session to **hn1-win-bastion** Azure VM and, on the **SUSE Hawk Status** page at **https://hn1-hdb1:7630** note that the **SAPHana** clustered resource is operational on both hn1-hdb0 and hn1-hdb1 with hn1-hdb1 as the primary (you might need to wait a few minutes for the interface to refresh):
-
-    ![On the Resources tab, the SAPHana line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image37.png "Resources tab")
-
-6.  Within the Remote Desktop session to **hn1-win-bastion** Azure VM, switch to the **SAP HANA Administration Console**, navigate to the **System Replication** sub-tab of the **Landscape** tab of the **Configuration and Monitoring** view and note that replication status is active.
-
-    ![In the Configuration and Monitoring view, on the System Repliation sub-tab of the Landscape tab, details display active replication status for SAP HANA.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image38.png "SAP HANA Administration Console, Landscape tab")
-
-7.  In **SAP HANA Administration Console**, switch to the Overview tab in the **Configuration and Monitoring** view. Note that SAP HANA continues running 	on the **hn1-hdb1** node and is fully operational.
-
-    ![In the Configuration and Monitoring view, on the Overview tab, details display for the hn1-hdb0 node.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/image39.png "SAP HANA Administration Console, Overview tab")
-
-
-### Task 6: Remove the highly-available HANA deployment
-
-1.  Switch to the lab computer and, in the first Cloud Shell pane, from the Bash prompt, run the following to change the current directory to the one hosting the Terraform and Ansible files that you used for the highly-available HANA deployment:
+1.  Switch to the SSH session to the **hdb1-0** Azure VM, run the following to switch to the security context of the **\<sid\>adm** account and, when prompted for its password, type **Help4you**:
 
     ```sh
-    cd ~/sap-hana/deploy/vm/modules/ha_pair/
-    ``` 
-
-    > **Note**: If needed, in the Azure portal, restart the Cloud Shell. 
-
-2.  In the Cloud Shell pane, from the Bash prompt, run the following to remove all resources provisioned by Terraform-based highly-available HANA deployment:
-
-    ```sh
-    terraform destroy -auto-approve
+    su - hn1adm
     ```
 
-3.  When prompted, type **yes** and press the Enter key to continue with the deployment. 
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to ensure that the HANA instance is stopped:
 
-   > **Note**: Wait for the completion of the removal before you proceed to the next task.
+    ```sh
+    sapcontrol -nr 00 -function StopWait 600 10
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to re-configure the local HANA instance as secondary
+
+    ```sh
+    hdbnsutil -sr_register --remoteHost=hdb1-1 --remoteInstance=00 --replicationMode=sync --name=SITE1
+    ```
+
+1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to switch back to root context and clean up the failed state:
+
+    ```sh
+    exit
+    sudo crm resource cleanup msl_SAPHana_HN1_HDB00 hdb1-0
+    ```
+   
+1.  Switch to the **SUSE Hawk Status** page, and verify that the status indicator of the **SAPHana** clustered resource changed initially to a question mark and then to a blue dot, with hdb1-0 as the master (you might need to wait a few minutes for the interface to refresh).
+
+    ![The Resources tab is selected on the Status page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_post_migration_and_cleanup_question_mark.png "Status page")
+
+1.  Switch to the **SUSE Hawk Status** page, and verify the **SAPHana** clustered resource is operational on both nodes with hdb1-0 as the master (you might need to wait a few minutes for the interface to refresh).
+
+    ![The Resources tab is selected on the Status page.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task7_hawk_post_migration_and_cleanup_blue_dot.png "Status page")
+
+
+### Task 8: Test fencing of the clustered resources with the AUTOMATED_REGISTER parameter enabled
+
+> **Note**: The parameter AUTOMATED_REGISTER defines, whether a former primary instance shouldbe registered automatically by the resource agent during cluster/resource start
+
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the **SUSE Hawk Status** page at **https://hdb1-0:7630**, select **Edit Configuration**. 
+
+    ![On the Resources tab, the SAPHana line now displays the fully operational status with the Edit configuration menu entry selected.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_edit_configuration.png "Edit configuration menu entry")
+
+1.  On the **SUSE Hawk** **Edit Configuration** page **https://hdb1-0:7630**, scroll down to the **rsc_SAPHana_HN1_HDB00** clustered resource and select the edit icon (**pencil**) at the right end of its entry.
+
+    ![On the Edit Configuration page, the rsc_SAPHana_HN1_HDB00 resource entry includes with the edit icon in the form of a pencil.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_edit_sap_hana_configuration.png "Edit SAP HANA resource configuration")
+
+1.  On the **SUSE Hawk** **Edit Primitive** page **https://hdb1-0:7630**, select **Yes** in the **AUTOMATED_REGISTER** drop-down list.
+
+    ![On the Edit Configuration page, the rsc_SAPHana_HN1_HDB00 resource entry includes the AUTOMATED_REGISTER option set to Yes.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_enable_automated_register.png "Edit SAP HANA AUTOMATED_REGISTER configuration")
+
+1.  On the **SUSE Hawk** **Edit Primitive** page **https://hdb1-0:7630**, scroll down to the bottom of the page and select **Apply**.
+
+    ![On the Edit Configuration page, the rsc_SAPHana_HN1_HDB00 resource entry includes the Apply button.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_apply_automated_register.png "Apply SAP HANA AUTOMATED_REGISTER configuration")
+
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the **SUSE Hawk Status** page at **https://hdb1-0:7630**, select **Status** to display the list of resources and their status. 
+
+    ![On the Resources tab, the SAPHana line now displays the fully operational status.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_fully_operational_with_hdb1-1_as_primary.png "Edit configuration menu entry")
+
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the Azure portal, search for and select the **Virtual machines** entry, on the **Virtual machines** blade, select the entry representing the **hdb1-1** Azure VM hosting the currently active HANA instance, in the toolbar, select **Stop** and, when prompted for confirmation, select **Yes**. 
+
+1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, switch to the Internet Explorer window displaying the **SUSE Hawk Status** page at **https://hdb1-0:7630**, wait until the status of the **msl_SAPHana_HN1_HDB01** resource in the Internet Explorer window displaying connection to **https://hdb1-0:7630** changes from a question mark to a blue dot, and verify that its location changed to **hdb1-0**.
+
+    ![On the Resources tab, the status of the resource has a blue dot, and its location is hdb1-0.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_post_primary_node_stopped_blue-dot.png "Resources tab")
+
+1.  Switch to the lab computer, in the Azure portal, on the **Virtual machines** blade, select the entry representing the **hdb1-1** Azure VM, in the toolbar, select **Start** and, when prompted for confirmation, select **Yes**. 
+
+1.  Switch back to the Remote Desktop session to **hanav2jmp-vm0** Azure VM and, on the **SUSE Hawk Status** page at **https://hdb1-0:7630** note that the **SAPHana** clustered resource is operational on both hdb1-0 and hdb1-1 with hdb1-1 as the primary (you might need to wait a few minutes for the interface to refresh and transition from a question mark to a blue dot displayed next to the msl_SAPHana_HN1_HDB00 resource):
+
+    > **Note**: Pacemaker automatically adds **hdb1-1** as the passive node of the **msl_SAPHana_HN1_HDB00** resource. This is expected, since the **AUTOMATED_REGISTER** parameter of the resource is now set to **true**. 
+
+    > **Note**: You might need to wait a few minutes for the change to be reflected in the SUSE Hawk interface.
+
+    ![On the Resources tab, the msl_SAPHana_HN1_HDB00 line now displays a question mark.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_post_secondary_node_started_question-mark.png "Resources tab")
+
+    ![On the Resources tab, the msl_SAPHana_HN1_HDB00 line now displays a blue dot.](images/Hands-onlabstep-by-step-SAPHANAonAzureimages/media/ex2task8_hawk_post_secondary_node_started_blue-dot.png "Resources tab")
+
 
 ## After the Hands-on lab 
 
@@ -961,27 +1673,25 @@ After completing the hands-on lab, remove the resource group and any remaining r
 
 ### Task 1: Remove the resource group containing all Azure resources deployed in this lab
 
-1.  From the lab computer, in the Azure portal at <http://portal.azure.com> , select the **Cloud Shell** icon.
+1.  From the lab computer, in [the Azure portal](http://portal.azure.com) , select the **Cloud Shell** icon.
 
-2.  If prompted, in the **Welcome to Azure Cloud Shell** window, select **Bash (Linux)**.
+1.  If prompted, in the **Welcome to Azure Cloud Shell** window, select **Bash (Linux)**.
 
-3.  At the Bash prompt, run the following:
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to select the Azure subscription in which you will provision the Azure resources in this lab (replace the `[subscription_ID]` placeholder with the value of the subscriptionID parameter of the Azure subscription you used in this lab):
 
     ```sh
-    if [ az group exists --name hanav1sn-RG ]
+    az account set --subscription '[subscription_ID]'
+    ```
+
+1.  In the **Bash** session in the **Cloud Shell** pane, run the following to delete all resource groups and their resources that you provisioned in this lab:
+
+    ```sh
+    if [ az group exists --name hanav2-sn-RG ]
     then
-         az group delete --name hanav1sn-RG --no-wait --yes
+         az group delete --name hanav2-sn-RG --no-wait --yes
     fi
-    if [ az group exists --name hanav1ha-RG ]
-    then
-         az group delete --name hanav1ha-RG --no-wait --yes
-    fi
-    if [ az group exists --name hanaMedia-RG ]
-    then
-         az group delete --name hanaMedia-RG --no-wait --yes
-    fi
-    cd ~
-    rm ~/sap-hana/ -r -f
+    az group delete --name hanav2-sn-RG --no-wait --yes
+    az group delete --name mcw-hana-on-azure-cli-RG --no-wait --yes
     ```
 
 You should follow all steps provided *after* attending the Hands-on lab.
