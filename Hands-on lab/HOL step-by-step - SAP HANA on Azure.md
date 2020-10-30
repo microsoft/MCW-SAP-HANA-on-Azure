@@ -712,6 +712,9 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
     hn1adm@hdb1-0:/hana/shared/HN1/xs/bin> HDB stop
     ```
 
+    > **Note**: Alternatively, you could stop the instance 00 of HANA DB HN1 by running /usr/sap/HN1/HDB00/HDB stop
+
+
 1.  Within the SSH session to the **hdb1-0** Azure VM, run the following to verify that the HANA instance is no longer running:
 
     ```sh
