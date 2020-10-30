@@ -1104,6 +1104,8 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
     > **Note**: Once the deployment completes, the output will include the public IP address of the Windows jumpbox VM included in the Terraform deployment, its local user name with the Administrator privileges, and its password, which you will use in the next task. 
 
+    > **Note**: Ignore the error message indicating failure of connection to **10.0.0.4** (Windows jumpbox VM).
+
 
 ### Task 3: Review the deployment of highly-available HANA instances
 
@@ -1156,7 +1158,7 @@ You will leverage a number of artifacts that you implemented in the first exerci
     api_url = https://hdb1-0.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:30030
     ```
 
-1.  Switch to the lab computer and initiate a Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0** which public IP address you identified in the previous task. When prompted, sign in with the credentials, also provided at the end of the previous task.
+1.  Switch to the lab computer and initiate a Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0** which public IP address you identified in the previous task. When prompted, sign in by using the **azureadm** username and the **Sap@hana2019!** password.
 
 1.  Within the Remote Desktop session to the Windows Server jumpbox Azure VM **hanav2jmp-vm0**, navigate to the **Local Server** view in the **Server Manager** window and disable **IE Enhanced Security Configuration**.
 
@@ -1214,7 +1216,7 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
 1.  On the **HN1_hdbAlb-bePool** blade, in the **Virtual machines** section, select **Add**.
 
-1.  On the **Add virtual machines to backend pool** blade, select the entry referencing **hdb1-0-admin-nic-ip (10.1.1.10)** and **hdb1-1-admin-nic-ip (10.1.1.11)** and then select **Add**. 
+1.  On the **Add virtual machines to backend pool** blade, select the entry referencing **hdb1-0-admin-nic-ip (10.1.1.10)** and **hdb1-1-admin-nic-ip (10.1.1.11)** and then select **Add**.
 
     > **Note**: Make sure to select the IP Configuration entries that reference IP addresses on the **10.1.1.0/24** subnet. This is necessary to allow for the traffic originating from the Windows Server jumpbox Azure VM to reach the backend pool VMs.
 
