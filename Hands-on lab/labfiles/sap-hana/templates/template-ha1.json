@@ -70,7 +70,7 @@
       }
     },
     "iscsi": {
-      "iscsi_count": 3,
+      "iscsi_count": 1,
       "size":"Standard_D2s_v3",
       "os": {
         "publisher": "SUSE",
@@ -109,7 +109,7 @@
   "databases": [
     {
       "platform": "HANA",
-      "db_version": "2.00.043",
+      "db_version": "2.00.050",
       "os": {
         "publisher": "suse",
         "offer": "sles-sap-12-sp5",

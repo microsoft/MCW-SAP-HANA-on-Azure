@@ -364,7 +364,7 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
       "databases": [
         {
           "platform": "HANA",
-          "db_version": "2.00.043",
+          "db_version": "2.00.050",
           "os": {
             "publisher": "suse",
             "offer": "sles-sap-12-sp5",
@@ -473,10 +473,10 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
     }
     ```
 
-1.  In the SSH session to the Azure VM, run the following to set the credentials necessary to access SAP downloads site (replace the `[SID]` placeholder with your SAP ID and the `[SID_password]` placeholder with the corresponding password):
+1.  In the SSH session to the Azure VM, run the following to set the credentials necessary to access SAP downloads site (replace the `[SAP_ID]` placeholder with your SAP ID and the `[SAP_ID_password]` placeholder with the corresponding password):
 
     ```sh
-    set_sap_download_credentials.sh [SID] [SID_password] template-sn1
+    set_sap_download_credentials.sh [SAP_ID] [SAP_ID_password] template-sn1
     ```
 
 1.  In the SSH session to the Azure VM, run the following to generate the name of the storage account that will host the SAP media files and add it to the Azure Resource Manager template you are using in this deployment:
@@ -519,7 +519,7 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
     az vm show --show-details --resource-group $RGNAME --name $VMNAME --query privateIps --output tsv
     ```
 
-    > **Note**: The **hdb1-0** Azure VM has two IP addresses **10.1.1.10** and **10.1.2.10**. The first one is meant to be used for management. You will use this IP address in this exercise. 
+    > **Note**: The **hdb1-0** Azure VM has two IP addresses **10.1.1.10** and **10.1.2.10**. The first one is meant to be used for management via jumpboxes. You will use this IP address in this exercise. The second one is for internal connectivity to HANA.
 
 1.  In the SSH session to the Azure VM, run the following to connect via SSH to the Linux jumpbox VM, which public IP address you identified in the previous task (replace the `[IP_address]` placeholder with the value of the public IP address and confirm when prompted whether to proceed):
 
@@ -872,7 +872,7 @@ You will leverage a number of artifacts that you implemented in the first exerci
       "databases": [
         {
           "platform": "HANA",
-          "db_version": "2.00.043",
+          "db_version": "2.00.050",
           "os": {
             "publisher": "suse",
             "offer": "sles-sap-12-sp5",
@@ -1003,10 +1003,10 @@ You will leverage a number of artifacts that you implemented in the first exerci
     }
     ```
 
-1.  In the SSH session to the Azure VM, run the following to set the credentials necessary to access SAP downloads site (replace the `[SID]` placeholder with your SAP ID and the `[SID_password]` placeholder with the corresponding password):
+1.  In the SSH session to the Azure VM, run the following to set the credentials necessary to access SAP downloads site (replace the `[SAP_ID]` placeholder with your SAP ID and the `[SAP_ID_password]` placeholder with the corresponding password):
 
     ```sh
-    set_sap_download_credentials.sh [SID] [SID_password] template-ha1.json
+    set_sap_download_credentials.sh [SAP_ID] [SAP_ID_password] template-ha1.json
     ```
 
 1.  In the SSH session to the Azure VM, run the following to set the resource id of the existing storage account that hosts the SAP media files and add it to the Azure Resource Manager template you are using in this deployment:
@@ -1251,6 +1251,14 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
 
 ### Task 4: Install SAP HANA Client on the Windows Server jumpbox Azure VM
+
+> **Note**: It is possible to automate the client installation by adding the following section to the windows jumpbox section of the deployment template:
+
+    ```json
+    "components": [
+          "hana_client_windows"
+        ]
+    ```
 
 1.  Within the Remote Desktop session to Windows Server jumpbox Azure VM **hanav2jmp-vm0**, start **Internet Explorer**, and browse to [SAP HANA Client 2.0 download page](https://tools.hana.ondemand.com/#hanatools)
 
