@@ -141,11 +141,10 @@
   "software": {
     "storage_account_sapbits": {
       "is_existing": false,
-      "account_tier": "Standard",
+      "account_tier": "Premium",
       "account_replication_type": "LRS",
-      "account_kind": "Storage",
-      "blob_container_name": "bits",
-      "container_access_type": "private"
+      "account_kind": "FileStorage",
+      "file_share_name": "bits"
     },
     "downloader": {
       "credentials": {
@@ -189,7 +188,7 @@
   },
   "options": {
     "enable_secure_transfer": true,
-    "ansible_execution": true,
+    "ansible_execution": false,
     "enable_prometheus": false
   }
 }
