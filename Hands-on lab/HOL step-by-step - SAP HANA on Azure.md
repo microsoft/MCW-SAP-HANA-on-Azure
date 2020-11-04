@@ -164,7 +164,7 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
     az vm show --show-details --resource-group $RGNAME --name $VMNAME --query publicIps -o tsv
     ```
 
-1.  From your computer, start the SSH client and connect via SSH to the newly provisioned Azure VM via the public IP address you identified in the previous step. When prompted to sign in, authentiate by using the credentials you provided during provisioning.
+1.  From your computer, start the SSH client and connect via SSH to the newly provisioned Azure VM via the public IP address you identified in the previous step. When prompted to sign in, authenticate by using the credentials you provided during provisioning.
 
 1.  Within the SSH session to the Azure VM, run the following to update the package manager list of available packages and their versions (confirm when prompted whether to proceed):
 
@@ -1361,7 +1361,7 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
 ### Task 5: Test failover of the clustered resources
 
-> **Note**: The remaining tasks within this excercise rely on **SUSE Hawk** to manipulate properties of HANA clustered resources. You can also use for this purpose cluster resource manager (CRM) shell interface.
+> **Note**: The remaining tasks within this exercise rely on **SUSE Hawk** to manipulate properties of HANA clustered resources. You can also use for this purpose cluster resource manager (CRM) shell interface.
 
 1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the **SUSE Hawk** page, from the **msl\_SAPHana\_HN1\_HDB01** pane, verify that **hdb1-0** is currently serving the master role. Then close the **msl\_SAPHana\_HN1\_HDB01** pane.
 
@@ -1417,7 +1417,7 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
 1.  Within the editor interface, update the value of the **api_url** parameter to reference the **hdb1-1** cluster node and close the file, saving your changes. 
 
-    > **Note**: The entry you edit should reseble the following (the domain name will be different):
+    > **Note**: The entry you edit should resemble the following (the domain name will be different):
 
     ```sh
     api_url = https://hdb1-1.fyz5ci1dm3lurnjzgn2dsvpb0g.bx.internal.cloudapp.net:30030
@@ -1676,7 +1676,7 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
 ### Task 8: Test fencing of the clustered resources with the AUTOMATED_REGISTER parameter enabled
 
-> **Note**: The parameter AUTOMATED_REGISTER defines, whether a former primary instance shouldbe registered automatically by the resource agent during cluster/resource start
+> **Note**: The parameter AUTOMATED_REGISTER defines, whether a former primary instance should be registered automatically by the resource agent during cluster/resource start
 
 1.  Within the Remote Desktop session to **hanav2jmp-vm0** Azure VM, in the Internet Explorer window displaying the **SUSE Hawk Status** page at **https://hdb1-0:7630**, select **Edit Configuration**. 
 
