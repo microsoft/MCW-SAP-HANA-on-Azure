@@ -140,7 +140,7 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
     rm ubuntu_azurecli_vm_template.parameters.json -f
 
     wget https://github.com/polichtm/MCW-SAP-HANA-on-Azure/tree/master/Hands-on%20lab/labfiles/sap-hana/templates/ubuntu_azurecli_vm_template.json
-    wget https://github.com/mpolicht/sap-hana/tree/master/templates/ubuntu_azurecli_vm_template.parameters.json
+    wget https://github.com/polichtm/MCW-SAP-HANA-on-Azure/tree/master/Hands-on%20lab/labfiles/sap-hana/templates/ubuntu_azurecli_vm_template.parameters.json
     ```
 
 1.  In the **Bash** session in the **Cloud Shell** pane, run the following to provision the Azure VM that will host the lab deployment tools:
