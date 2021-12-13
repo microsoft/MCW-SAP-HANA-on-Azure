@@ -222,6 +222,7 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
 1.  In the SSH session to the Azure VM you provisioned in the previous task, run the following to clone the code you will use to perform the deployment, switch to the directory containing the deployment files, and grant execute permissions on all directories and files:
 
     ```sh
+    rm sap-hana/ -rf
     git clone https://github.com/polichtm/sap-hana.git
     cd sap-hana/
     chmod -R +x+X *
@@ -504,6 +505,11 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
 
     > **Note**: Once the deployment completes, the output will include the public IP address of the Linux jumpbox Azure VM included in the Terraform deployment and its administrator's account name, which you will use in the next task. 
 
+    > **Note**: If the deployment fails or does not complete within 15 minutes, terminate the deployment by pressing Ctrl+C, within the SSH session to the Azure VM you used to perform the Terraform deployment, run the following command to delete the resource group and resources created during the deployment, and then retry the deployment by re-running task 2 of this exercise.
+
+        ```sh
+        az group delete --name hanav2-sn-RG --yes
+        ```
 
 ### Task 3: Deploy a single node HANA instance by using Ansible
 
@@ -562,6 +568,12 @@ In this exercise, you will implement a single-node deployment of SAP HANA on Azu
     > **Note**: Wait for the deployment to complete. This should take about 60 minutes.
 
     > **Note**: Once the deployment completes, the output will include the private IP address of the Linux VM hosting the HANA installation, which you will use in the next task. 
+
+    > **Note**: If the deployment fails or does not complete within 75 minutes, terminate the deployment by pressing Ctrl+C, within the SSH session to the Azure VM you used to perform the Terraform deployment, run the following command to delete the resource group and resources created during the deployment, and then retry the deployment by re-running task 2 and 3 of this exercise.
+
+        ```sh
+        az group delete --name hanav2-sn-RG --yes
+        ```
 
 
 ### Task 4: Review the deployment of a single-node HANA instance
@@ -1098,6 +1110,11 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
     > **Note**: Once the deployment completes, the output will include the public IP address of the Linux jumpbox Azure VM included in the Terraform deployment and its administrator's account name, which you will use in the next task. 
 
+    > **Note**: If the deployment fails or does not complete within 15 minutes, terminate the deployment by pressing Ctrl+C, within the SSH session to the Azure VM you used to perform the Terraform deployment, run the following command to delete the resource group and resources created during the deployment, and then retry the deployment by re-running this task.
+
+        ```sh
+        az group delete --name hanav2-ha-RG --yes
+        ```
 
 ### Task 2: Deploy highly-available Azure HANA instances by using Ansible
 
@@ -1141,6 +1158,11 @@ You will leverage a number of artifacts that you implemented in the first exerci
 
     > **Note**: Once the deployment completes, the output will include the public IP address of the Windows jumpbox VM included in the Terraform deployment, its local user name with the Administrator privileges, and its password, which you will use in the next task. 
 
+    > **Note**: If the deployment fails or does not complete within 75 minutes, terminate the deployment by pressing Ctrl+C, within the SSH session to the Azure VM you used to perform the Terraform deployment, run the following command to delete the resource group and resources created during the deployment, and then retry the deployment by re-running task 1 and 2 of this exercise.
+
+        ```sh
+        az group delete --name hanav2-ha-RG --yes
+        ```
 
 ### Task 3: Review the deployment of highly-available HANA instances
 
