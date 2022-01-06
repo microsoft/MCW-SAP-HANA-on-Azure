@@ -1,5 +1,4 @@
-## Please note
-## Effective March 4, 2022 we will be removing the lab documents from this workshop.  The Whiteboard design session will remain available.
+## Please note - Effective March 4, 2022 we will be removing the lab documents from this workshop.  The Whiteboard design session will remain available.
 
 # SAP HANA on Azure
 
