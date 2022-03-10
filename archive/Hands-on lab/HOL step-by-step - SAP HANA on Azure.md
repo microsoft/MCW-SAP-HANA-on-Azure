@@ -23,6 +23,8 @@ The names of manufacturers, products, or URLs are provided for informational pur
 
 Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx are trademarks of the Microsoft group of companies. All other trademarks are property of their respective owners.
 
+# Please note: This lab has been archived and is no longer being updated or maintained.
+
 **Contents**
 
 <!-- TOC -->
