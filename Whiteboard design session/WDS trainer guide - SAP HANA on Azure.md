@@ -1,6 +1,5 @@
 ﻿![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/main/Media/ms-cloud-workshop.png "Microsoft Cloud Workshops")
 
-
 <div class="MCWHeader1">
 SAP HANA on Azure
 </div>
@@ -35,7 +34,6 @@ Microsoft and the trademarks listed at https://www.microsoft.com/en-us/legal/int
   - [During the whiteboard design session: Tips for an effective whiteboard design session](#during-the-whiteboard-design-session-tips-for-an-effective-whiteboard-design-session)
 - [SAP HANA on Azure whiteboard design session student guide](#sap-hana-on-azure-whiteboard-design-session-student-guide)
   - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Prerequisites](#prerequisites)
   - [Step 1: Review the customer case study](#step-1-review-the-customer-case-study)
     - [Customer situation](#customer-situation)
     - [Contoso S/4HANA Deployment Priorities](#contoso-s4hana-deployment-priorities)
@@ -177,14 +175,6 @@ When participants are doing activities, you can **look ahead to refresh your mem
 In this workshop, you will look at what is involved in deploying SAP HANA on Azure with the goals of designing for in-memory database performance, business continuity and flexibility as well as fully optimized total cost of ownership. 
 
 At the end of this whiteboard design session you will be able to design SAP HANA workloads on Azure in alignment with SAP HANA certification with high availability and disaster recovery, run Azure Pricing Calculator to price the SAP HANA landscape, and present the solution to business/technical decision makers and handle Q&A with customer. 
-
-## Prerequisites
-
--   R-AIT344 : Architecture deep dive for SAP deployments
-
--   R-AIT333 : SAP Migration Practitioner Panel
-
--   Understanding of SAP on Azure Webinar Training and S/4HANA on Azure reference architecture 
 
 ## Step 1: Review the customer case study 
 
