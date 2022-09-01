@@ -38,7 +38,7 @@ SAP on Azure
 
 ## Related references
 - [MCW](https://microsoftcloudworkshop.com)
-- [SAP plus extend and innovate with Data and AI](https://github.com/microsoft/MCW-SAP-plus-extend-and-innovate-with-Data-and-AI)
+- Microsoft Cloud Workshop [SAP plus extend and innovate with Data and AI](https://github.com/microsoft/MCW-SAP-plus-extend-and-innovate-with-Data-and-AI)
 
 ## Help & Support
 
