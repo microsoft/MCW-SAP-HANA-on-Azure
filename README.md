@@ -22,6 +22,8 @@ In this workshop, you will look at what is involved in deploying SAP HANA on Azu
 
 At the end of this whiteboard design session you will be able to design SAP HANA workloads on Azure in alignment with SAP HANA certification with high availability and disaster recovery, use Azure Pricing Calculator to price the SAP HANA landscape, and present the solution to business/technical decision makers and handle Q&A with customer. 
 
+Continue to the [Whiteboard design session](https://github.com/microsoft/MCW-SAP-HANA-on-Azure/tree/master/Whiteboard%20design%20session) documents folder.
+
 ## Azure services and related products
 - SAP on Azure
 - SAP HANA
@@ -36,6 +38,7 @@ SAP on Azure
 
 ## Related references
 - [MCW](https://microsoftcloudworkshop.com)
+- [SAP plus extend and innovate with Data and AI](https://github.com/microsoft/MCW-SAP-plus-extend-and-innovate-with-Data-and-AI)
 
 ## Help & Support
 
