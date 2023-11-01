@@ -1,5 +1,5 @@
 # SAP HANA on Azure 
-## Please Note: This workshop will retire effective October 31, 2023. The workshop is no longer being maintained.
+## This workshop is archived and no longer being maintained. Content is read-only.
 
 Contoso, a pharmaceutical company, wants to significantly reduce server and storage hardware in their own datacenters to minimize IT related costs. The leadership asked Contoso IT to look into the possibility of implementing its SAP HANA environment to cloud. Contoso also wants to dramatically simplify the process of provisioning Azure resources, as well as installation and Please Note: This workshop will retire effect October 31, 2023. The workshop is no longer being maintained. of SAP HANA software components. Contoso IT has been relying on Ansible to manage its on-premises environment and, with the cloud migration plans, it started evaluating the use of Terraform to automate on-premises and cloud-based deployments.
 
